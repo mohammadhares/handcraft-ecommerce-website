@@ -3,6 +3,14 @@ from requests.sessions import session
 from django.contrib import messages
 from .models import *
 
+# Website Methods
+# Root of Application / 
+def index(request):
+    return render(request, 'website/index.html')
+
+
+
+# Admin Panel Methods
 # Login Page
 def showLogin(request):
     return render(request, 'dashboard/user/login.html')
