@@ -1,0 +1,21 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Smarty v5</title>
+  <meta name="description" content="...">
+  <meta name="viewport" content="width=device-width, maximum-scale=5, initial-scale=1">
+  <!-- preloading icon font is helping to speed up a little bit -->
+  <link rel="stylesheet" href="{% static '/assets/css/core.min.css' %}">
+  <link rel="stylesheet" href="{% static '/assets/css/vendor_bundle.min.css' %}">
+  <meta name="theme-color" content="#377dff">
+</head>
+
+<body>
+
+  {% block content %}{% endblock content %}
+
+  <script src="{% static '/assets/js/core.min.js' %}"></script>
+</body>
+</html>

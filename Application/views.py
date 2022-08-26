@@ -6,9 +6,22 @@ from .models import *
 # Website Methods
 # Root of Application / 
 def index(request):
-    return render(request, 'website/index.html')
+    products = Product.objects.all()
+    return render(request, 'website/index.html', {'products':products})
 
+def productDetails(request , id):
+    return render(request, 'website/product_details.html', {
+        'product' : Product.objects.filter(id=id)
+    })
 
+def addCart(request , id):
+    return null
+    # product = Product.objects.filter(id=id)
+    # Order(
+    #     quantity= request.POST['quantity'],
+    #     price= product.price * request.POST['quantity'],
+
+    # )        
 
 # Admin Panel Methods
 # Login Page

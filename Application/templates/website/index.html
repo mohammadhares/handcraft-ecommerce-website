@@ -1,19 +1,6 @@
+{% extends 'app/website.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-
-<head>
-  <title>Smarty v5</title>
-  <meta name="description" content="...">
-  <meta name="viewport" content="width=device-width, maximum-scale=5, initial-scale=1">
-  <!-- preloading icon font is helping to speed up a little bit -->
-  <link rel="stylesheet" href="{% static '/assets/css/core.min.css' %}">
-  <link rel="stylesheet" href="{% static '/assets/css/vendor_bundle.min.css' %}">
-  <meta name="theme-color" content="#377dff">
-</head>
-
-<body>
-
+{% block content %}
   <div id="wrapper">
     <!-- Header -->
     <header id="header" class="shadow-xs">
@@ -1622,254 +1609,32 @@
 
 
 
-
-          <!-- item -->
-          <div class="order-2 col-6 col-lg-3" >
-
-            <div
-              class="bg-white shadow-xs shadow-3d-hover transition-all-ease-250 transition-hover-top rounded show-hover-container p-2 h-100">
-
-              <a href="shop-page-product-2.html" class="d-block text-gray-800">
-
-                <!-- 
-                    
-                    3 ways to set the image
-
-                  -->
-
-                <!-- 1. without .bg-suprime - use image as it is -->
-                <!--
-                  <figure class="text-center rounded-top overflow-hidden">
-                    <img class="img-fluid" src="image.jpg" alt="..."> 
-                  </figure>
-                  -->
-
-
-                <!-- 2. squared, as background -->
-                <!--
-                  <figure class="text-center rounded-top overflow-hidden bg-cover" style="background-image:url('image.jpg')">
-                    <img class="w-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="..."> 
-                  </figure>
-                  -->
-
-                <!-- 3. with .bg-suprime (remove white bg and add a gray bg) -->
-                <figure class="text-center bg-gradient-radial-light rounded-top overflow-hidden">
-                  <img class="img-fluid bg-suprime opacity-9"
-                    src="demo.files/images/unsplash/products/sneakers/thumb_330/nikita-kachanovsky-ad_0wMHtvlU-unsplash-min.jpg"
-                    alt="...">
-                </figure>
-
-                <span class="d-block fs-6 p-2">
-
-                  <!-- rating -->
-                  <span class="d-block smaller text-muted">
-                    <i class="rating-4 smaller text-warning"></i> (4.7)
-                  </span>
-
-                  <!-- title -->
-                  <span class="d-block fw-medium">Lorem ipsum dolor sit amet</span>
-
-                  <!-- price -->
-                  <span class="d-block fw-medium">
-                    <del class="text-muted">$112.00</del>
-                    <span class="text-dark">$99.00</span>
-                  </span>
-
-                </span>
-
-              </a>
-
-            </div>
-
-          </div>
-          <!-- /item -->
-
-
-          <!-- item -->
-          <div class="order-2 col-6 col-lg-3" style="border:1px solid red">
-
-            <div
-              class="bg-white shadow-xs shadow-3d-hover transition-all-ease-250 transition-hover-top rounded show-hover-container p-2 h-100">
-
-              <a href="shop-page-product-2.html" class="d-block text-gray-800">
-
-                <!-- 
-                    
-                    3 ways to set the image
-
-                  -->
-
-                <!-- 1. without .bg-suprime - use image as it is -->
-                <!--
-                  <figure class="text-center rounded-top overflow-hidden">
-                    <img class="img-fluid" src="image.jpg" alt="..."> 
-                  </figure>
-                  -->
-
-
-                <!-- 2. squared, as background -->
-                <!--
-                  <figure class="text-center rounded-top overflow-hidden bg-cover" style="background-image:url('image.jpg')">
-                    <img class="w-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="..."> 
-                  </figure>
-                  -->
-
-                <!-- 3. with .bg-suprime (remove white bg and add a gray bg) -->
-                <figure class="text-center bg-gradient-radial-light rounded-top overflow-hidden">
-                  <img class="img-fluid bg-suprime opacity-9"
-                    src="demo.files/images/unsplash/products/sneakers/thumb_330/irene-kredenets-dwKiHoqqxk8-unsplash-min.jpg"
-                    alt="...">
-                </figure>
-
-                <span class="d-block fs-6 p-2">
-
-                  <!-- rating -->
-                  <span class="d-block smaller text-muted">
-                    <i class="rating-4 smaller text-warning"></i> (4.7)
-                  </span>
-
-                  <!-- title -->
-                  <span class="d-block fw-medium">Lorem ipsum dolor sit amet</span>
-
-                  <!-- price -->
-                  <span class="d-block fw-medium">
-                    <del class="text-muted">$112.00</del>
-                    <span class="text-dark">$99.00</span>
-                  </span>
-
-                </span>
-
-              </a>
-
-            </div>
-
-          </div>
-          <!-- /item -->
-
-
-          <!-- item -->
+          {% for data in products %}
           <div class="order-2 col-6 col-lg-3">
-
             <div
-              class="bg-white shadow-xs shadow-3d-hover transition-all-ease-250 transition-hover-top rounded show-hover-container p-2 h-100">
-
-              <a href="shop-page-product-2.html" class="d-block text-gray-800">
-
-                <!-- 
-                    
-                    3 ways to set the image
-
-                  -->
-
-                <!-- 1. without .bg-suprime - use image as it is -->
-                <!--
-                  <figure class="text-center rounded-top overflow-hidden">
-                    <img class="img-fluid" src="image.jpg" alt="..."> 
-                  </figure>
-                  -->
-
-
-                <!-- 2. squared, as background -->
-                <!--
-                  <figure class="text-center rounded-top overflow-hidden bg-cover" style="background-image:url('image.jpg')">
-                    <img class="w-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="..."> 
-                  </figure>
-                  -->
-
-                <!-- 3. with .bg-suprime (remove white bg and add a gray bg) -->
+              class="bg-white shadow-xs shadow-3d-hover transition-all-ease-250 
+              transition-hover-top rounded show-hover-container p-2 h-100">
+              <a href="product-detail/{{ data.id }}" class="d-block text-gray-800">
                 <figure class="text-center bg-gradient-radial-light rounded-top overflow-hidden">
                   <img class="img-fluid bg-suprime opacity-9"
-                    src="demo.files/images/unsplash/products/sneakers/thumb_330/masaaki-komori-1GiUkfbcXis-unsplash-min.jpg"
+                    src="../../static/{{ data.photo }}"
                     alt="...">
                 </figure>
 
                 <span class="d-block fs-6 p-2">
-
-                  <!-- rating -->
-                  <span class="d-block smaller text-muted">
-                    <i class="rating-4 smaller text-warning"></i> (4.7)
-                  </span>
-
                   <!-- title -->
-                  <span class="d-block fw-medium">Lorem ipsum dolor sit amet</span>
-
+                  <span class="d-block fw-medium">{{ data.title }}</span>
                   <!-- price -->
                   <span class="d-block fw-medium">
-                    <del class="text-muted">$112.00</del>
-                    <span class="text-dark">$99.00</span>
+                    <del class="text-muted">{{ data.price }}</del>
+                    <span class="text-dark">{{ data.price }}</span>
                   </span>
 
                 </span>
-
               </a>
-
             </div>
-
           </div>
-          <!-- /item -->
-
-
-          <!-- item -->
-          <div class="order-2 col-6 col-lg-3">
-
-            <div
-              class="bg-white shadow-xs shadow-3d-hover transition-all-ease-250 transition-hover-top rounded show-hover-container p-2 h-100">
-
-              <a href="shop-page-product-2.html" class="d-block text-gray-800">
-
-                <!-- 
-                    
-                    3 ways to set the image
-
-                  -->
-
-                <!-- 1. without .bg-suprime - use image as it is -->
-                <!--
-                  <figure class="text-center rounded-top overflow-hidden">
-                    <img class="img-fluid" src="image.jpg" alt="..."> 
-                  </figure>
-                  -->
-
-
-                <!-- 2. squared, as background -->
-                <!--
-                  <figure class="text-center rounded-top overflow-hidden bg-cover" style="background-image:url('image.jpg')">
-                    <img class="w-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="..."> 
-                  </figure>
-                  -->
-
-                <!-- 3. with .bg-suprime (remove white bg and add a gray bg) -->
-                <figure class="text-center bg-gradient-radial-light rounded-top overflow-hidden">
-                  <img class="img-fluid bg-suprime opacity-9"
-                    src="demo.files/images/unsplash/products/sneakers/thumb_330/sarah-dorweiler-gUPiTDBdRe4-unsplash-min.jpg"
-                    alt="...">
-                </figure>
-
-                <span class="d-block fs-6 p-2">
-
-                  <!-- rating -->
-                  <span class="d-block smaller text-muted">
-                    <i class="rating-4 smaller text-warning"></i> (4.7)
-                  </span>
-
-                  <!-- title -->
-                  <span class="d-block fw-medium">Lorem ipsum dolor sit amet</span>
-
-                  <!-- price -->
-                  <span class="d-block fw-medium">
-                    <del class="text-muted">$112.00</del>
-                    <span class="text-dark">$99.00</span>
-                  </span>
-
-                </span>
-
-              </a>
-
-            </div>
-
-          </div>
-          <!-- /item -->
-
+          {% endfor %}
         </div>
         <!-- /product list -->
 
@@ -2372,8 +2137,4 @@
 
   </div><!-- /#wrapper -->
 
-
-  <script src="{% static '/assets/js/core.min.js' %}"></script>
-</body>
-
-</html>
+{% endblock %}

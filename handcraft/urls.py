@@ -19,6 +19,10 @@ from Application import views
 
 urlpatterns = [
     path('', views.index, name="root"),
+    path('product-detail/<str:id>', views.productDetails , name="product.detail"),
+    path('add-cart/<str:id>', views.addCart , name="add.cart"),
+
+
     path('login', views.showLogin, name="login"),
     path('admin/home', views.home , name="admin.home"),
     path('admin_login', views.adminLogin, name="admin.login"),
