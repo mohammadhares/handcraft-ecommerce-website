@@ -41,6 +41,8 @@ urlpatterns = [
 
     path('shop/', views.shopList, name="shop.list"),
     path('blog/', views.blogList, name="blog.list"),
+    path('contact-us/', views.contactUs, name="contact.us"),
+    path('track-order/', views.trackOrder, name="track.order"),
 
     path('admin/products', views.showProducts, name="admin.products"),
 

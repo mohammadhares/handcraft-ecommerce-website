@@ -85,6 +85,12 @@ def blogList(request):
         'blogs': Blog.objects.all(),
         'categories': Category.objects.all(),
     })
+
+def contactUs(request):
+    return render(request, 'website/contactus.html')
+
+def trackOrder(request):
+    return render(request, 'website/track-order.html')
 # Admin Panel Methods
 # Login Page
 def showLogin(request):

@@ -17,7 +17,7 @@
     <!-- Header -->
     <header id="header" class="shadow-xs">
       <!-- TOP BAR -->
-      <div id="top_bar" class="bg-light">
+      <div id="top_bar" class="bg-light ">
         <div class="container js-ignore">
           <div class="text-nowrap">
             <!-- change with .scrollable-horizontal to horizontally scroll, if -only- no dropdown is present -->
@@ -356,11 +356,11 @@
                 </li>
 
                 <li class="nav-item">
-                  <a href="" class="nav-link">Track Order</a>
+                  <a href="/track-order" class="nav-link">Track Order</a>
                 </li>
 
                 <li class="nav-item">
-                  <a href="" class="nav-link">Contact Us</a>
+                  <a href="/contact-us" class="nav-link">Contact Us</a>
                 </li>
 
                 <li class="nav-item">
@@ -442,138 +442,129 @@
     </div>
     <!-- INFO BOX -->
     <!-- Footer -->
-    <footer id="footer" class="shadow-xs">
-      <div class="container py-5">
-        <div class="row">
-          <div class="col-12 col-lg-8">
-            <div class="row mb-3">
-              <!-- Col 1 -->
-              <div class="col-12 col-lg-4 mb-1">
-                <!-- mobile only : SOW Toggle Button -->
-                <button
-                  class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none"
-                  data-bs-target="#footer_c1"
-                  data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
-                  <span class="group-icon p-2 float-start">
-                    <i class="fi fi-bars-2"></i>
-                    <i class="fi fi-close"></i>
-                  </span>
-                  <span class="h5 py-2 m-0 float-start">
-                    Orders
-                  </span>
-                </button>
-                <!-- desktop only -->
-                <h3 class="h5 py-3 m-0 d-none d-lg-block">
-                  Orders
-                </h3>
-                <!-- navbar : navigation -->
-                <ul id="footer_c1" class="nav flex-column d-none d-lg-block">
-                  <li class="list-item">
-                    <a class="d-block py-1" href="#">My Account</a>
-                  </li>
-                  <li class="list-item">
-                    <a class="d-block py-1" href="#">How do I order?</a>
-                  </li>
-                  <li class="list-item">
-                    <a class="d-block py-1" href="#">Payment Methods</a>
-                  </li>
-                </ul>
-              </div>
-              <!-- Col 2 -->
-              <div class="col-12 col-lg-4 mb-1">
-                <!-- mobile only : SOW Toggle Button -->
-                <button
-                  class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none"
-                  data-bs-target="#footer_c2"
-                  data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
-                  <span class="group-icon p-2 float-start">
-                    <i class="fi fi-bars-2"></i>
-                    <i class="fi fi-close"></i>
-                  </span>
-                  <span class="h5 py-2 m-0 float-start">
-                    Explore
-                  </span>
-                </button>
-                <!-- desktop only -->
-                <h3 class="h5 py-3 m-0 d-none d-lg-block">
-                  Explore
-                </h3>
-                <!-- navbar : navigation -->
-                <ul id="footer_c2" class="nav flex-column d-none d-lg-block">
-                  <li class="list-item">
-                    <a class="d-block py-1" href="blog-page-sidebar.html">Smarty Blog</a>
-                  </li>
+   <!-- Footer -->
+   <footer id="footer" class="bg-gray-900 text-white">
 
-                  <li class="list-item">
-                    <a class="d-block py-1" href="#">Shipping</a>
-                  </li>
+    <!-- footer cta -->
+    <div class="container tet-white py-5 d-lg-flex flex-row align-items-lg-center">
 
-                  <li class="list-item">
-                    <a class="d-block py-1" href="#">Cookies</a>
-                  </li>
-                </ul>
-              </div>
-              <!-- Col 3 -->
-              <div class="col-12 col-lg-4 mb-1">
-                <!-- mobile only : SOW Toggle Button-->
-                <button
-                  class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none"
-                  data-bs-target="#footer_c3"
-                  data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
-                  <span class="group-icon p-2 float-start">
-                    <i class="fi fi-bars-2"></i>
-                    <i class="fi fi-close"></i>
-                  </span>
-                  <span class="h5 py-2 m-0 float-start">
-                    Support
-                  </span>
-                </button>
-                <!-- desktop only -->
-                <h3 class="h5 py-3 m-0 d-none d-lg-block">
-                  Support
-                </h3>
-                <!-- navbar : navigation -->
-                <ul id="footer_c3" class="nav flex-column d-none d-lg-block">
-                  <li class="list-item">
-                    <a class="d-block py-1" href="#">Refund Policy</a>
-                  </li>
-                  <li class="list-item">
-                    <a class="d-block py-1" href="#">Privacy Policy</a>
-                  </li>
-                  <li class="list-item">
-                    <a class="d-block py-1" href="#">Terms &amp; Conditions</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <h5 class="my-3">Follow us</h5>
-            <form novalidate class="bs-validate" method="post" action="#">
-              <div class="input-group mb-3">
-                <input required type="email" name="subscribe_email" value="" class="form-control"
-                  placeholder="email address" aria-label="email address">
-                <button class="btn btn-dark">Subscribe</button>
-              </div>
-            </form>
-          </div>
+      <div class="row g-4 align-items-center">
+        <h3 class="col-lg-6 h2 mb-0">
+          Join our community by using our services and grow your business.
+        </h3>
+        <div class="col text-lg-end">
+          <a href="https://wrapbootstrap.com/theme/smarty-website-admin-rtl-WB02DSN1B" target="_blank" rel="noopener" class="btn btn-warning rounded-pill d-inline-flex align-items-center px-4">
+            <span class="text-dark me-2">Start now</span>
+            <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">  
+              <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+            </svg>
+          </a>
         </div>
       </div>
-      <div class="border-top">
-        <div class="container text-center py-5">
+
+    </div>
+    <!-- /footer cta -->
+
+    <!-- line divider -->
+    <hr class="bg-gray-500 my-0 container">
+    
+    <div class="container py-5">
+
+      <div class="row g-4">
+        
+        <div class="col-12 col-lg-4 mb-4">
+
           <!-- logo -->
-          <span class="h--70 d-inline-flex align-items-center">
-            <img src="../../static/assets/images/logo/logo_dark.svg" width="110" height="38" alt="...">
-          </span>
-          <p class="m-0 text-gray-500 fs-6">
-            &copy; My Company Inc. 2022.
-            <br>
-            All Rights Reserved.
-          </p>
+          <img width="110" height="38" src="../../static/assets/images/logo/logo_light.svg" alt="...">
+
+          <div class="my-4"><!-- copyright -->
+            <p class="small mb-0">&copy; 2022 My Company Inc.</p>
+            <p class="small mb-0">All rights reserved.</p>
+          </div>
+
+          <!-- social icons -->
+          <a href="#" class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener" aria-label="facebook page">
+            <i class="fi fi-social-facebook"></i> 
+          </a>
+
+          <a href="#" class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener" aria-label="twitter page">
+            <i class="fi fi-social-twitter"></i> 
+          </a>
+
+          <a href="#" class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener" aria-label="linkedin page">
+            <i class="fi fi-social-linkedin"></i> 
+          </a>
+
+          <a href="#" class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener" aria-label="youtube page">
+            <i class="fi fi-social-youtube"></i> 
+          </a>
+
         </div>
+
+        <div class="col-12 col-lg-4 mb-4">
+
+          <h3 class="small mb-4">GET IN TOUCH</h3>
+
+          <p class="small col-md-10">
+            Smarty is a responsive multipurpose template, created to help you build new projects in no time! Clean, fast, simple!
+          </p>
+
+          <div class="small d-flex align-items-start my-3">
+            <svg class="me-3 flex-none my-1" height="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <ul class="list-unstyled p-0 m-0 w-100">
+              <li>PO Box 21132</li>
+              <li>Here Weare St, Melbourne</li>
+              <li>Vivas 2355 Australia</li>
+            </ul>
+          </div>
+
+          <div class="small d-flex align-items-start my-3">
+            <svg class="me-3 flex-none my-1" height="24px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">  
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+            </svg>
+            <ul class="list-unstyled p-0 m-0 w-100">
+              <li>Phone: <a href="tel:18005652390" class="text-white text-dashed">093 - 708 - 275 - 116</a></li>
+              <li>Email: <a href="mail:myemail@gmail.com" class="text-white text-dashed">hares@gmail.com</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+
+        <div class="col-12 col-lg-4 mb-4">
+
+          <h3 class="small mb-4">LEARN MORE</h3>
+
+          <ul class="list-unstyled"> 
+            <li class="list-item mb-2">
+              <i class="fi fi-arrow-end me-2 smaller"></i>
+              <a class="text-gray-400" href="contact-1.html">Contact</a>
+            </li> 
+            <li class="list-item mb-2">
+              <i class="fi fi-arrow-end me-2 smaller"></i>
+              <a class="text-gray-400" href="about-us-1.html">About Us</a>
+            </li> 
+            <li class="list-item mb-2">
+              <i class="fi fi-arrow-end me-2 smaller"></i>
+              <a class="text-gray-400" href="page-terms-and-conditions.html">Terms & Conditions</a>
+            </li> 
+            <li class="list-item mb-2">
+              <i class="fi fi-arrow-end me-2 smaller"></i>
+              <a class="text-gray-400" href="page-cookie.html">GDPR & Cookies</a>
+            </li> 
+          </ul>
+
+        </div>
+
       </div>
-    </footer>
+
+    </div>
+
+  </footer>
+  <!-- /Footer -->
     <!-- /Footer -->
   </div>
   <script src="{% static '/assets/js/core.min.js' %}"></script>
