@@ -33,6 +33,14 @@ urlpatterns = [
     path('category/destroy/<str:id>', views.destroyCategory, name="destroy.category"),
     path('category/status/<str:id>/<str:status>', views.changeCategoryStatus, name="status.category"),
 
+    path('customer/login', views.customerLogin, name="customer.login"),
+    path('login/customer', views.loginCustomer, name="login.customer"),
+    path('customer/signup', views.customerSignUp, name="customer.signup"),
+    path('customer/store', views.storeCustomer, name="store.customer"),
+    path('customer/add-cart/<str:id>' , views.addCart, name="add.cart"),
+
+    path('shop/', views.shopList, name="shop.list"),
+
     path('admin/products', views.showProducts, name="admin.products"),
 
     path('admin/customers', views.showCustomers, name="admin.customers"),

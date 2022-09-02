@@ -1446,19 +1446,20 @@
 
                             <!-- add to cart -->
                             <div class="py-3 d-lg-flex">
-                            <form action="{% if request.session.user : %}" method="POST" enctype="multipart/form-data">
+                            <!-- <form id="form-to-cart" action="/customer/add-cart" method="POST"> 
                                 {% csrf_token %}
                                 <div class="w-100 d-flex mb-2 mb-lg-0">
                                     <input required type="number" name="quantity" value="1" min="1" max="9999"
-                                        class="flex-none form-control form-control-lg w-auto text-center float-start mx-0">
+                                        class="flex-none form-control form-control-lg w-auto text-center float-start mx-0"> -->
                                     <!-- add to cart button -->
-                                    <div class="d-grid w-100 mx-2">
+                                    <!-- <div class="d-grid w-100 mx-2">
                                         <button type="submit" class="btn btn-lg btn-primary flex-none">
-                                            Add to cart
+                                            Add to carts
                                         </button>
                                     </div>
-                                </div>
-                            </form>
+                                </div> --> -->
+                                <a href="/customer/add-cart/{{ product.0.id }}" class="btn btn-primary">Add Cart</a> -->
+                            <!-- </form> -->
 
                                 <!-- favourites button (delete if not needed) -->
                                 <a href="#"
