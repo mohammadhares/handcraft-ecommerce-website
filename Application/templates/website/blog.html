@@ -1,0 +1,266 @@
+{% extends 'app/website.html' %}
+{% load static %}
+{% block content %}
+			<!-- start :: blog content -->
+			<div class="section">
+				<div class="container"> 
+
+					<div class="row g-xl-5">
+
+						<div class="col-lg-9 order-2 order-lg-1">
+
+
+							<!-- FEATURED POST : ALWAYS LAST ADDED -->
+							<a href="blog-page-article-sidebar.html" class="d-block mb-7 position-relative text-dark clearfix text-decoration-none">
+
+								<figure class="d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
+									<img class="img-fluid rounded" src="../../static/uploads/blog/banner.jpg" alt="...">
+								</figure>
+
+								<p class="text-muted small">
+									Post Date: <time datetime="2019-12-03">Dec 03, 2019</time>
+								</p>
+								<h2 class="h4"></h2>
+
+							</a>
+							<!-- /FEATURED POST : ALWAYS LAST ADDED -->
+							<!-- posts -->
+							<div class="row">
+								<!-- post -->
+                                {% for data in blogs %}
+								<a href="blog-page-article-sidebar.html" class="col-12 col-md-6 mb-5 position-relative text-dark clearfix text-decoration-none">
+									<figure class="d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
+										<img class="img-fluid rounded" src="../../static/{{ data.photo }}" alt="...">
+									</figure>
+
+									<p class="text-muted small">
+										Post Date: <time datetime="2019-12-03">{{ data.created }}</time>
+									</p>
+									<h3 class="h5">{{ data.title }}</h2>
+								</a>
+                                {% endfor %}
+								<!-- /post -->
+							</div>
+							<!-- /posts -->
+
+
+
+							<!-- pagination : center -->
+							<nav aria-label="pagination" class="my-5">
+								<ul class="pagination pagination-pill justify-content-center">
+
+									<li class="page-item disabled">
+										<a class="page-link" href="#" tabindex="-1">Previous</a>
+									</li>
+									
+									<li class="page-item">
+										<a class="page-link" href="#">1</a>
+									</li>
+									
+									<li class="page-item active" aria-current="page">
+										<a class="page-link" href="#">2 <span class="visually-hidden">(current)</span></a>
+									</li>
+									
+									<li class="page-item">
+										<a class="page-link" href="#">3</a>
+									</li>
+									
+									<li class="page-item">
+										<a class="page-link" href="#">Next</a>
+									</li>
+
+								</ul>
+							</nav>
+							<!-- /pagination : center -->
+								
+
+
+
+
+
+
+						</div>
+
+						<div class="col-lg-3 order-1 order-lg-2 mb-5">
+
+
+							<!-- SEARCH -->
+							<form method="get" action="#" class="input-group-over d-block mb-2">
+								
+								<div class="form-floating mb-3">
+									<input required placeholder="Blog search..." id="blog_search" name="keywords" type="text" class="form-control">
+									<label for="blog_search">Blog search...</label>
+								</div>
+
+								<button type="submit" class="btn smaller">
+									<i class="fi fi-search m-0"></i>
+								</button>
+
+							</form>
+							<!-- /SEARCH -->
+
+
+
+							<!-- CATEGORIES -->
+							<nav class="nav-deep nav-deep-light mb-2">
+
+								<!-- mobile only -->
+								<button class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none" data-bs-target="#nav_responsive" data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
+									<span class="group-icon px-2 py-2 float-start">
+										<i class="fi fi-bars-2"></i>
+										<i class="fi fi-close"></i>
+									</span>
+
+									<span class="h5 py-2 m-0 float-start">
+										Categories
+									</span>
+								</button>
+
+								<!-- desktop only -->
+								<h3 class="h5 py-3 m-0 d-none d-lg-block">
+									Categories
+								</h3>
+
+
+								<!-- navbar : navigation -->
+								<ul id="nav_responsive" class="nav flex-column d-none d-lg-block">
+
+									<li class="nav-item active">
+										<a class="nav-link px-0" href="account-orders.html">
+											<i class="fi fi-arrow-end m-0 smaller"></i> 
+											<span class="px-2 d-inline-block">
+												Development
+											</span>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link px-0" href="account-favourites.html">
+											<i class="fi fi-arrow-end m-0 smaller"></i> 
+											<span class="px-2 d-inline-block">
+												Trends
+											</span>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link px-0" href="account-settings.html">
+											<i class="fi fi-arrow-end m-0 smaller"></i> 
+											<span class="px-2 d-inline-block">
+												Case Studies
+											</span>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link px-0" href="#">
+											<span class="group-icon">
+												<i class="fi fi-arrow-end"></i>
+												<i class="fi fi-arrow-down"></i>
+											</span>
+
+											<span class="px-2 d-inline-block">
+												Multi level
+											</span>
+										</a>
+
+										<ul class="nav flex-column px-3">
+											<li class="nav-item">
+												<a class="nav-link" href="#">
+													Option 1
+												</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#">
+													Option 2
+												</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#">
+													Option 3
+												</a>
+											</li>
+										</ul>
+
+									</li>
+
+								</ul>
+
+							</nav>
+							<!-- /CATEGORIES -->
+
+
+
+
+
+
+
+							<!-- mobile trigger : expand -->
+							<button class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none" data-bs-target="#sidebar_expand_mobile" data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
+								<span class="group-icon px-2 py-2 float-start">
+									<i class="fi fi-bars-2"></i>
+									<i class="fi fi-close"></i>
+								</span>
+
+								<span class="h5 py-2 m-0 float-start">
+									Explore
+								</span>
+							</button>
+
+
+							<div id="sidebar_expand_mobile" class="d-none d-lg-block">
+
+								<!-- RECOMMENDED -->
+								<h3 class="h5 mt-5 mt-0-xs">
+									Top Recommended
+								</h3>
+								<ul class="list-unstyled">
+
+									<li class="list-item border-bottom py-1">
+										<a class="text-dark fw-light fs-6" href="blog-page-article-sidebar.html">How Retailers Can Build</a>
+									</li>
+
+									<li class="list-item border-bottom py-1">
+										<a class="text-dark fw-light fs-6" href="blog-page-article-sidebar.html">Build an Engaged Customer Base</a>
+									</li>
+
+									<li class="list-item border-bottom py-1">
+										<a class="text-dark fw-light fs-6" href="blog-page-article-sidebar.html">Retail Lighting Designs to Encourage Sales</a>
+									</li>
+
+									<li class="list-item border-bottom py-1">
+										<a class="text-dark fw-light fs-6" href="blog-page-article-sidebar.html">Let there be light</a>
+									</li>
+
+									<li class="list-item border-bottom py-1">
+										<a class="text-dark fw-light fs-6" href="blog-page-article-sidebar.html">Build an Engaged Customer Base</a>
+									</li>
+
+								</ul>
+								<!-- /RECOMMENDED -->
+
+
+
+
+								<!-- BANNER -->
+								<a href="#" class="mt-5 d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
+									<img class="w-100 img-fluid rounded" src="demo.files/images/unsplash/portfolio/thumb_330/boxed-water-is-better-6RTh34xCS1M-unsplash-min.jpg" alt="...">
+								</a>
+								<h4 class="small text-gray-500 fw-normal mt-1 mb-0">
+									Sponsored Ad
+								</h4>
+								<!-- /BANNER -->
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>	
+			<!-- end :: blog content -->
+{% endblock content %}
+
+
+

@@ -79,6 +79,12 @@ def shopList(request):
         'products': Product.objects.all(),
         'categories': Category.objects.all(),
     })
+
+def blogList(request):
+    return render(request, 'website/blog.html', {
+        'blogs': Blog.objects.all(),
+        'categories': Category.objects.all(),
+    })
 # Admin Panel Methods
 # Login Page
 def showLogin(request):

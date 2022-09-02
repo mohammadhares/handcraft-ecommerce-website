@@ -40,6 +40,7 @@ urlpatterns = [
     path('customer/add-cart/<str:id>' , views.addCart, name="add.cart"),
 
     path('shop/', views.shopList, name="shop.list"),
+    path('blog/', views.blogList, name="blog.list"),
 
     path('admin/products', views.showProducts, name="admin.products"),
 
