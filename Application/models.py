@@ -154,6 +154,17 @@ class SiteInfo(models.Model):
 
 class meta:
     db_table = 'site_info'
+
+class WishList(models.Model):
+    id=models.AutoField(primary_key=True)
+    product=models.ForeignKey('Product', on_delete=models.DO_NOTHING)
+    customer=models.ForeignKey('Customer', on_delete=models.DO_NOTHING)
+    created=models.DateField(auto_now_add=True)
+    updated=models.DateField(auto_now_add=True)
+
+class meta:
+    db_table = 'wishlist'
+
     
 
 

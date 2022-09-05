@@ -26,6 +26,7 @@ urlpatterns = [
     path('login', views.showLogin, name="login"),
     path('admin/home', views.home , name="admin.home"),
     path('admin_login', views.adminLogin, name="admin.login"),
+    path('customer/logout', views.logout, name="logout"),
 
     path('admin/categories', views.showCategories, name="admin.category"),
     path('category/store', views.storeCategory, name="store.category"),

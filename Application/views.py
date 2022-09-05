@@ -16,10 +16,27 @@ def Customer_login_required(function):
 # Website Methods
 # Root of Application / 
 def index(request):
-    return render(request, 'website/index.html', {
-        'products': Product.objects.all(),
-        'categories': Category.objects.all(),
-    })
+    if not (request.session.get('customer_id')):
+        return render(request, 'website/index.html', {
+            'products': Product.objects.all(),
+            'categories': Category.objects.all(),
+            'basketCount': 0,
+            'wishlist' : 0,
+        })
+    else:
+        cid = request.session.get('customer_id')
+        return render(request, 'website/index.html', {
+            'products': Product.objects.all(),
+            'categories': Category.objects.all(),
+            'basketCount': Order.objects.filter(customer_id=cid).count(),
+            'wishlist' : WishList.objects.filter(customer_id=cid).count(),
+            'orders': Order.objects.filter(customer_id=cid),
+            'customer': Customer.objects.filter(id=cid),
+        })
+
+
+
+    
 
 def productDetails(request , id):
     return render(request, 'website/product_details.html', {
@@ -38,6 +55,7 @@ def loginCustomer(request):
             user = Customer.objects.get(email=username)
             if user.password == password:
                 request.session['customer_id'] = user.id
+                request.session['customer_name'] = user.firstname
                 return redirect('root')
             else:
                 messages.error(request, "Incorrect Username or Password")
@@ -91,6 +109,12 @@ def contactUs(request):
 
 def trackOrder(request):
     return render(request, 'website/track-order.html')
+
+
+def logout(request):
+    del request.session['customer_id']
+    del request.session['customer_name']
+    return redirect('root')
 # Admin Panel Methods
 # Login Page
 def showLogin(request):

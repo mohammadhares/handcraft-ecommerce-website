@@ -136,8 +136,9 @@
               <div aria-labelledby="dropdownAccountOptions"
                 class="list-unstyled dropdown-menu dropdown-menu-clean dropdown-click-ignore end-0 py-2 rounded-xl"
                 style="min-width:215px;">
-
-                <div class="dropdown-header px-4 mb-1 text-wrap fw-medium">John Doe</div>
+                {% if request.session.customer_id %}
+                <div class="dropdown-header px-4 mb-1 text-wrap fw-medium">{{ request.session.customer_name }}</div>
+                {% endif %}
                 <div class="dropdown-divider mb-3"></div>
                 <a class="dropdown-item active" href="account-index.html">
                   <svg class="text-gray-600 float-start" width="18px" height="18px" viewBox="0 0 16 16"
@@ -237,7 +238,7 @@
                   <span>Account settings</span>
                 </a>
                 <div class="dropdown-divider mt-3"></div>
-                <a href="#" title="Log Out" class="dropdown-item mt-1">
+                <a href="/customer/logout" title="Log Out" class="dropdown-item mt-1">
                   <i class="fi fi-power float-start"></i>
                   Log Out
                 </a>
@@ -247,8 +248,8 @@
 
             <!-- favourites button : visible : desktop only -->
             <li class="list-inline-item mx-1 dropdown d-none d-sm-block">
-              <a href="account-favourites.html" aria-label="My Favourites" class="d-inline-block text-center text-dark">
-                <span class="badge bg-light text-dark position-absolute end-0 mt-n1 p-1">2</span>
+              <a href="" aria-label="My Favourites" class="d-inline-block text-center text-dark">
+                <span class="badge bg-light text-dark position-absolute end-0 mt-n1 p-1">{{ session.request.wishlist }}</span>
                 <i class="fi fi-heart-empty fs-4"></i>
                 <span class="d-block small">Favourites</span>
               </a>
@@ -257,7 +258,7 @@
             <li class="list-inline-item mx-1 dropdown">
               <a href="#" aria-label="My Cart" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true"
                 class="d-inline-block text-center text-dark">
-                <span class="badge bg-warning text-dark position-absolute end-0 mt-n1 p-1">2</span>
+                <span class="badge bg-warning text-dark position-absolute end-0 mt-n1 p-1">{{ session.request.basketCount }}</span>
                 <i class="fi fi-cart-1 fs-4"></i>
                 <span class="d-block small">Cart</span>
               </a>
