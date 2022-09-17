@@ -34,10 +34,6 @@ def index(request):
             'customer': Customer.objects.filter(id=cid),
         })
 
-
-
-    
-
 def productDetails(request , id):
     return render(request, 'website/product_details.html', {
         'product' : Product.objects.filter(id=id)
@@ -187,33 +183,78 @@ def changeCategoryStatus(request , id , status):
     return redirect('admin.category')
 
 def showProducts(request):
-    return render(request, 'dashboard/product/product.html')
+    return render(request, 'dashboard/product/product.html', {
+        'products' : Product.objects.all().order_by('-id'),
+        'categories' : Category.objects.all().order_by('-id')
+    })
+
+def storeProduct(request):
+    if request.method == "POST":
+        result = Product(
+            title = request.POST['title'],
+            description = request.POST['desc'],
+            quantity = request.POST['quantity'],
+            price = request.POST['price'],
+            category_id = request.POST['category'],
+            photo = request.FILES['photo'],
+        )
+        result.save()
+        messages.success(request,"Product Published Successfully")
+        return redirect('admin.products')
+
+def updateProduct(request, id):
+    product = Product.objects.get(id=id)
+    if request.method == "POST":
+        if len(request.FILES) != 0:
+            product.photo = request.FILES['photo']
+        product.title = request.POST['title'],
+        product.description = request.POST['desc'],
+        product.quantity = int(request.POST['quantity']),
+        product.price = int(request.POST['price']),
+        product.save()
+        messages.success(request,"Product Updated Successfully")
+        return redirect('admin.products')
+
 
 def showCustomers(request):
-    return render(request, 'dashboard/customer/customer.html')
+    return render(request, 'dashboard/customer/customer.html', {
+        'customers' : Customer.objects.all().order_by('-id')
+    })
 
 def showOrders(request):
-    return render(request, 'dashboard/order/order.html')
+    return render(request, 'dashboard/order/order.html', {
+        'orders' : Order.objects.all().order_by('-id')
+    })
 
 def showShipping(request):
     return render(request, 'dashboard/shipping/shipping.html')
 
 def showUsers(request):
-    return render(request, 'dashboard/user/user_list.html')
+    return render(request, 'dashboard/user/user_list.html', {
+        'users' : User.objects.all().order_by('-id')
+    })
 
 def showRequests(request):
     return render(request, 'dashboard/request/request.html')
 
 def showBlogs(request):
-    return render(request, 'dashboard/website/blog.html')
+    return render(request, 'dashboard/website/blog.html', {
+        'blogs' : Blog.objects.all().order_by('-id')
+    })
 
 def showContacts(request):
-    return render(request, 'dashboard/website/contact.html')
+    return render(request, 'dashboard/website/contact.html', {
+        'contacts' : Contact.objects.all().order_by('-id')
+    })
 
 def showSubscribe(request):
-    return render(request, 'dashboard/website/subscribe.html')
+    return render(request, 'dashboard/website/subscribe.html', {
+        'subscribers' : Subscribe.objects.all().order_by('-id')
+    })
 
 def showSiteInfo(request):
-    return render(request, 'dashboard/website/site_info.html')
+    return render(request, 'dashboard/website/site_info.html', {
+        'siteinfo' : SiteInfo.objects.first()
+    })
 
 # Website

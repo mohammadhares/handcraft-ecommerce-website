@@ -1,7 +1,275 @@
 {% extends 'app/admin_layout.html' %}
 {% load static %}
 {% block content %}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Products</li>
+    </ol>
+</nav>
+<main id="middle" class="flex-fill mx-auto">
+    <div class="section p-0">
+        <div class="card-header p-4">
+            <div class="row g-3">
+                <!-- product filter -->
+                <div class="order-2 order-md-1 col">
+                    <form method="get" class="position-relative d-flex align-items-center">
+                        <!-- search icon -->
+                        <svg class="z-index-1 position-absolute start-0 ms-3 text-primary" width="18px" height="18px"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <div class="dropdown w-100">
+                            <input type="text"
+                                class="dropdown-toggle form-control form-control-sm border-0 shadow-none ps-5 bg-gray-100"
+                                data-bs-toggle="dropdown" data-bs-auto-close="outside" placeholder="Category title">
+                        </div>
+                    </form>
+                </div>
+                <!-- options -->
+                <div class="order-1 order-md-2 col-md-auto">
+                    <div class="btn-group w-100" role="group" aria-label="Product options">
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#modalCentered">
+                            Add New
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalCentered" data-bs-keyboard="false" tabindex="-1"
+                            aria-labelledby="modalCenteredLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalCenteredLabel">Add New Category</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="category_form" action="/category/store" method="POST"
+                                            enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="mb-3">
+                                                <label for="categorytitle" class="form-label">Category Title</label>
+                                                <input type="text" required name="category" class="form-control"
+                                                    id="categorytitle" placeholder="Ex. Women Clothes">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Image</label>
+                                                <input class="form-control" name="photo" type="file" id="formFile">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" form="category_form"
+                                            class="btn btn-primary btn-sm">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <h1>Contacts </h1>
+        <div class="card-body pt-1">
+            <!-- item list -->
+            <div class="table-responsive-md">
+                <table class="table table-align-middle" role="grid" aria-describedby="mobile-page-info">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="small text-muted">ID</th>
+                            <th scope="col" class="small text-muted">Subject</th>
+                            <th scope="col" class="small text-muted">Email</th>
+                            <th scope="col" class="small text-muted">Message</th>
+                            <th scope="col" class="small text-muted">Created Date</th>
+                            <th scope="col" class="small text-muted">Last Update Date</th>
+                            <th scope="col" class="small text-muted">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="checkall-list">
+                        <!-- item -->
+                        {% for data in contacts %}
+                        <tr>
+                            <td class="position-relative">{{ data.id }}</td>
+                            <td class="position-relative">{{ data.subject }} </td>
+                            <td class="position-relative">{{ data.email }} </td>
+                            <td class="position-relative">{{ data.message }} </td>
+                            <td class="position-relative">{{ data.created }}</td>
+                            <td class="position-relative">{{ data.updated }}</td>
+                            <td class="dropstart">
+                                <!-- options -->
+                                <a class="btn btn-sm btn-light btn-icon btn-ghost text-muted rounded-circle dropdown-toggle"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                    data-bs-offset="0,0">
+                                    <span class="group-icon">
+                                        <svg height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-clean">
+                                    <li>
+                                        <a class="dropdown-item" href="" data-bs-toggle="modal"
+                                        data-bs-target="#preview{{data.id}}">
+                                            <svg class="text-muted" width="18px" height="18px"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                            <span>Preview</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="" data-bs-toggle="modal"
+                                            data-bs-target="#modalCentered{{data.id}}">
+                                            <svg class="text-muted" width="18px" height="18px"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M12 20h9"></path>
+                                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z">
+                                                </path>
+                                            </svg>
+                                            <span>Edit </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/1">
+                                            <svg class="text-muted" width="18px" height="18px"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                            <span>Set active</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/2">
+                                            <svg class="text-muted" width="18px" height="18px"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                            <span>Set inactive</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/3">
+                                            <svg class="text-muted" width="18px" height="18px"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                                            </svg>
+                                            <span>Set unavailable</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="doDelete('Are You Sure to Delete Category?');" class="dropdown-item" href="/category/destroy/{{ data.id }}">
+                                            <svg class="text-danger" width="18px" height="18px"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path
+                                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                </path>
+                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                            </svg>
+                                            <span class="w-100">Delete</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- Edit Modal  -->
+                                <div class="modal fade" id="modalCentered{{data.id}}" data-bs-keyboard="false"
+                                    tabindex="-1" aria-labelledby="modalCenteredLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalCenteredLabel">Edit Category</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="category_form{{data.id}}"
+                                                    action="/category/update/{{data.id}}" method="POST"
+                                                    enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <div class="mb-3">
+                                                        <label for="categorytitle" class="form-label">Category
+                                                            Title</label>
+                                                        <input type="text" value="{{ data.name }}" required
+                                                            name="category" class="form-control" id="categorytitle"
+                                                            placeholder="Ex. Women Clothes">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">Image</label>
+                                                        <input class="form-control" name="photo" type="file"
+                                                            id="formFile">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" form="category_form{{data.id}}"
+                                                    class="btn btn-primary btn-sm">Save </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="preview{{data.id}}" data-bs-keyboard="false"
+                                    tabindex="-1" aria-labelledby="modalCenteredLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div>
+                                                    <img style="width: 100%;" src="../../../static/{{ data.photo }}" class="img img-responsive" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <!-- end item -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- pagination, selected items -->
+            <div class="row">
+                <div class="col py-3 text-center text-md-start">
+                    <!-- selected items -->
+                    <div class="d-grid d-md-inline-block dropup">
+                        <!-- <a class="btn btn-sm btn-primary btn-sm" href="#" >
+                <span>Print All</span>
+              </a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
 {% endblock content %}

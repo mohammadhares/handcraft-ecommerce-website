@@ -1,7 +1,59 @@
 {% extends 'app/admin_layout.html' %}
 {% load static %}
 {% block content %}
-
     <h1>Home </h1>
+    <div class="col-lg-4">
+        <select  name="type" class="form-control" id="" onchange="showChart(this.value);">
+            <option value="column">Column</option>
+            <option value="bar">Bar</option>
+            <option value="pie">Pie</option>
+            <option value="pyramid">Pyramid</option>
+        </select>
+    </div>
+    <script>
+        function showChart(charType){
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                title:{
+                    text: "Patients In Each Month"
+                },
+                axisY: {
+                includeZero: true
+                },
+                data: [{
+                    type: charType, //change type to bar, line, area, pie, etc
+                    //indexLabel: "{y}", //Shows y value on all Data Points
+                    indexLabelFontColor: "#5A5757",
+                    indexLabelFontSize: 16,
+                    indexLabelPlacement: "outside",
+                    dataPoints: [
+                        { label: 'Jan', y: 55 },
+                        { label: 'Feb', y: 55 },
+                        { label: 'Mar', y: 55 },
+                        { label: 'Apr', y: 55 },
+                        { label: 'May', y: 55 },
+                        { label: 'Jun', y: 55 },
+                        { label: 'Jul', y: 55 },
+                        { label: 'Aug', y: 55 },
+                        { label: 'Sep', y: 55 },
+                        { label: 'Oct', y: 55 },
+                        { label: 'Nov', y: 55 },
+                        { label: 'Dec', y: 65 },
+                    ]
+                }]
+            });
+            chart.render();
+        }
+
+        window.onload = function () {
+            showChart('column');
+        }
+        </script>
+        <div id="chartContainer" style="height: 600px; width: 100%;"></div>
+        <script src="{% static 'assets/js/canvasjs.min.js' %}"></script>
+
+
 
 {% endblock content %}

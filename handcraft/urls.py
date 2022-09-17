@@ -46,6 +46,9 @@ urlpatterns = [
     path('track-order/', views.trackOrder, name="track.order"),
 
     path('admin/products', views.showProducts, name="admin.products"),
+    path('admin/storeProduct', views.storeProduct, name="store.products"),
+    path('admin/updateProduct/<str:id>', views.updateProduct, name="update.product"),
+
 
     path('admin/customers', views.showCustomers, name="admin.customers"),
 

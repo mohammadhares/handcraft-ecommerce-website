@@ -2,6 +2,69 @@
 {% load static %}
 {% block content %}
 
-    <h1>Site Info </h1>
+<h1>Site Info </h1>
+<hr>
+<br>    
+<div class="row">
+    <div class="col-md-6">
+        <form action="/action_page.php">
+            <div class="form-group">
+                <label for="email">About Title:</label>
+                <input type="text" value="{{ siteinfo.about_title }}" class="form-control" placeholder="Please Type the About Title">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="pwd">About Description:</label>
+                <input type="text" value="{{ siteinfo.about_desc }}" class="form-control" placeholder="Please Type the About Description">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="pwd">Email:</label>
+                <input type="email" value="{{ siteinfo.email }}" class="form-control" placeholder="Please Type the Email">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="pwd">Phone:</label>
+                <input type="number" value="{{ siteinfo.phone }}" class="form-control" placeholder="Please Type the Phone">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="pwd">Address:</label>
+                <input type="text" value="{{ siteinfo.address }}" class="form-control" placeholder="Please Type the Address">
+            </div>
+            <br>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <form action="/action_page.php">
+            <div class="form-group">
+                <label for="email">Facebook:</label>
+                <input type="text" value="{{ siteinfo.facebook }}" class="form-control" placeholder="Please Type the About Title">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="pwd">Instagram:</label>
+                <input type="text" value="{{ siteinfo.instagram }}" class="form-control" placeholder="Please Type the About Description">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="pwd">Youtube:</label>
+                <input type="text" value="{{ siteinfo.youtube }}" class="form-control" placeholder="Please Type the Email">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="pwd">Pinterest:</label>
+                <input type="text" value="{{ siteinfo.pinterest }}" class="form-control" placeholder="Please Type the Phone">
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="form-group" style="float: right;">
+                <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock content %}
