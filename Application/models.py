@@ -165,7 +165,30 @@ class WishList(models.Model):
 class meta:
     db_table = 'wishlist'
 
-    
+class RequestQuery(models.Model):
+    id=models.AutoField(primary_key=True)
+    subject=models.CharField(max_length=300)
+    name=models.CharField(max_length=300)
+    email=models.CharField(max_length=300)
+    message=models.TextField()
+    response=models.TextField()
+    created=models.DateField(auto_now_add=True)
+    updated=models.DateField(auto_now_add=True)
+
+class meta:
+    db_table = 'requests'
+
+class Shipping(models.Model):
+    id = models.AutoField(primary_key=True)
+    shipping_type = models.CharField(max_length=200)
+    shipping_zone = models.CharField(max_length=200)
+    price = models.BigIntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+class meta:
+    db_table = 'shipping'
+
 
 
 

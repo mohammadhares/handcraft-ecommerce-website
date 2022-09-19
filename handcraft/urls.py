@@ -24,6 +24,7 @@ urlpatterns = [
 
 
     path('login', views.showLogin, name="login"),
+    path('admin/logout', views.AdminLogout , name="admin.logout"),
     path('admin/home', views.home , name="admin.home"),
     path('admin_login', views.adminLogin, name="admin.login"),
     path('customer/logout', views.logout, name="logout"),
@@ -55,17 +56,29 @@ urlpatterns = [
     path('admin/orders', views.showOrders, name="admin.orders"),
 
     path('admin/shipping', views.showShipping, name="admin.shipping"),
+    path('store/shipping', views.storeShipping, name="store.shipping"),
+    path('update/shipping/<str:id>', views.updateShipping, name="store.shipping"),
 
     path('admin/users', views.showUsers, name="admin.users"),
+    path('store/user', views.storeUser, name="store.user"),
+    path('update/user/<str:id>', views.updateUser, name="update.user"),
+    path('destroy/user/<str:id>', views.destroyUser, name="destroy.user"),
 
     path('admin/requests', views.showRequests, name="admin.requests"),
+    path('reply/requests/<str:id>', views.replyRequest, name="reply.request"),
+    path('destroy/requests/<str:id>', views.destroyRequest, name="destroy.request"),
 
     path('admin/blogs', views.showBlogs, name="admin.blogs"),
+    path('store/blog', views.storeBlog, name="store.blog"),
+    path('update/blog/<str:id>', views.updateBlog, name="update.blog"),
+    path('destroy/post/<str:id>', views.destroyBlog, name="destroy.blog"),
 
     path('admin/contacts', views.showContacts, name="admin.contacts"),
+    path('destroy/contact/<str:id>', views.destroyContact, name="destroy.contact"),
 
     path('admin/subscribe', views.showSubscribe, name="admin.subscribe"),
 
     path('admin/site-info', views.showSiteInfo, name="admin.site.info"),
+    path('update/site-info/<str:id>', views.updateSiteInfo, name="update.siteInfo"),
 
 ]

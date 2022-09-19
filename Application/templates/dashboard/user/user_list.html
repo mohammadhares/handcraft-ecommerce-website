@@ -41,21 +41,48 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalCenteredLabel">Add New Category</h5>
+                                        <h5 class="modal-title" id="modalCenteredLabel">Add New User</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="category_form" action="/category/store" method="POST"
+                                        <form id="category_form" action="/store/user" method="POST"
                                             enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="mb-3">
-                                                <label for="categorytitle" class="form-label">Category Title</label>
-                                                <input type="text" required name="category" class="form-control"
-                                                    id="categorytitle" placeholder="Ex. Women Clothes">
+                                                <label for="firstname" class="form-label">Firstname</label>
+                                                <input type="text" required name="firstname" class="form-control"
+                                                    id="firstname" placeholder="Ex. Haris ">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="formFile" class="form-label">Image</label>
+                                                <label for="lastname" class="form-label">Lastname</label>
+                                                <input type="text" required name="lastname" class="form-control"
+                                                    id="lastname" placeholder="Ex.  Muhammadi">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" required name="email" class="form-control"
+                                                    id="email" placeholder="Ex.  example@gmail.com">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="role" class="form-label">Role</label>
+                                                <select name="role" id="" class="form-control">
+                                                    <option value="1">Administratore</option>
+                                                    <option value="2">Standard</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="password" class="form-label">Password</label>
+                                                <input type="password" required name="password" class="form-control"
+                                                    id="password" placeholder="Password">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="conf_pass" class="form-label">Confrim Password</label>
+                                                <input type="password" required name="conf_pass" class="form-control"
+                                                    id="conf_pass" placeholder="Confrim Password">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Photo</label>
                                                 <input class="form-control" name="photo" type="file" id="formFile">
                                             </div>
                                         </form>
@@ -70,6 +97,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
 
@@ -102,7 +130,15 @@
                             <td class="position-relative">{{ data.firstname }} </td>
                             <td class="position-relative">{{ data.lastname }} </td>
                             <td class="position-relative">{{ data.email }} </td>
-                            <td class="position-relative">{{ data.role }} </td>
+                            <td class="position-relative">
+                                <span class="badge bg-primary-soft">
+                                    {% if data.role == 1 %}
+                                        Administratore
+                                    {% else %}
+                                        Standard
+                                    {% endif %}
+                                </span>
+                            </td>
                             <td class="position-relative">{{ data.created }}</td>
                             <td class="position-relative">{{ data.updated }}</td>
                             <td class="dropstart">
@@ -154,43 +190,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/1">
-                                            <svg class="text-muted" width="18px" height="18px"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <polyline points="20 6 9 17 4 12"></polyline>
-                                            </svg>
-                                            <span>Set active</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/2">
-                                            <svg class="text-muted" width="18px" height="18px"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                                            </svg>
-                                            <span>Set inactive</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/3">
-                                            <svg class="text-muted" width="18px" height="18px"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <circle cx="12" cy="12" r="10"></circle>
-                                                <line x1="15" y1="9" x2="9" y2="15"></line>
-                                                <line x1="9" y1="9" x2="15" y2="15"></line>
-                                            </svg>
-                                            <span>Set unavailable</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a onclick="doDelete('Are You Sure to Delete Category?');" class="dropdown-item" href="/category/destroy/{{ data.id }}">
+                                        <a onclick="doDelete('Are You Sure to Delete User?');" class="dropdown-item" href="/destroy/user/{{ data.id }}">
                                             <svg class="text-danger" width="18px" height="18px"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -218,20 +218,44 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form id="category_form{{data.id}}"
-                                                    action="/category/update/{{data.id}}" method="POST"
+                                                    action="/update/user/{{data.id}}" method="POST"
                                                     enctype="multipart/form-data">
                                                     {% csrf_token %}
                                                     <div class="mb-3">
-                                                        <label for="categorytitle" class="form-label">Category
-                                                            Title</label>
-                                                        <input type="text" value="{{ data.name }}" required
-                                                            name="category" class="form-control" id="categorytitle"
-                                                            placeholder="Ex. Women Clothes">
+                                                        <label for="firstname" class="form-label">Firstname</label>
+                                                        <input type="text" required name="firstname" class="form-control"
+                                                            id="firstname" value="{{ data.firstname }}" placeholder="Ex. Haris ">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="formFile" class="form-label">Image</label>
-                                                        <input class="form-control" name="photo" type="file"
-                                                            id="formFile">
+                                                        <label for="lastname" class="form-label">Lastname</label>
+                                                        <input type="text" required name="lastname" class="form-control"
+                                                            id="lastname" value="{{ data.lastname }}" placeholder="Ex.  Muhammadi">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="email" class="form-label">Email</label>
+                                                        <input type="email" required name="email" class="form-control"
+                                                            id="email" value="{{ data.email }}" placeholder="Ex.  example@gmail.com">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="role" class="form-label">Role</label>
+                                                        <select name="role" id="" class="form-control">
+                                                            <option {% if data.role == 1 %} selected {% endif %} value="1">Administratore</option>
+                                                            <option {% if data.role == 2 %} selected {% endif %} value="2">Standard</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="password" class="form-label">Password</label>
+                                                        <input type="password" required name="password" class="form-control"
+                                                            id="password" placeholder="Password">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="conf_pass" class="form-label">Confrim Password</label>
+                                                        <input type="password" required name="conf_pass" class="form-control"
+                                                            id="conf_pass" placeholder="Confrim Password">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">Photo</label>
+                                                        <input class="form-control" name="photo" type="file" id="formFile">
                                                     </div>
                                                 </form>
                                             </div>

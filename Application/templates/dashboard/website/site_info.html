@@ -7,55 +7,54 @@
 <br>    
 <div class="row">
     <div class="col-md-6">
-        <form action="/action_page.php">
+        <form action="/update/site-info/{{ siteinfo.id }}" method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}
             <div class="form-group">
                 <label for="email">About Title:</label>
-                <input type="text" value="{{ siteinfo.about_title }}" class="form-control" placeholder="Please Type the About Title">
+                <input type="text" value="{{ siteinfo.about_title }}" class="form-control" name="title" placeholder="Please Type the About Title">
             </div>
             <br>
             <div class="form-group">
                 <label for="pwd">About Description:</label>
-                <input type="text" value="{{ siteinfo.about_desc }}" class="form-control" placeholder="Please Type the About Description">
+                <input type="text" value="{{ siteinfo.about_desc }}" class="form-control" name="desc" placeholder="Please Type the About Description">
             </div>
             <br>
             <div class="form-group">
                 <label for="pwd">Email:</label>
-                <input type="email" value="{{ siteinfo.email }}" class="form-control" placeholder="Please Type the Email">
+                <input type="email" value="{{ siteinfo.email }}" class="form-control" name="email" placeholder="Please Type the Email">
             </div>
             <br>
             <div class="form-group">
                 <label for="pwd">Phone:</label>
-                <input type="number" value="{{ siteinfo.phone }}" class="form-control" placeholder="Please Type the Phone">
+                <input type="number" value="{{ siteinfo.phone }}" class="form-control" name="phone" placeholder="Please Type the Phone">
             </div>
             <br>
             <div class="form-group">
                 <label for="pwd">Address:</label>
-                <input type="text" value="{{ siteinfo.address }}" class="form-control" placeholder="Please Type the Address">
+                <input type="text" value="{{ siteinfo.address }}" class="form-control" name="address" placeholder="Please Type the Address">
             </div>
             <br>
-        </form>
     </div>
 
     <div class="col-md-6">
-        <form action="/action_page.php">
             <div class="form-group">
                 <label for="email">Facebook:</label>
-                <input type="text" value="{{ siteinfo.facebook }}" class="form-control" placeholder="Please Type the About Title">
+                <input type="text" value="{{ siteinfo.facebook }}" name="facebook" class="form-control" placeholder="https://facebook.com/example">
             </div>
             <br>
             <div class="form-group">
                 <label for="pwd">Instagram:</label>
-                <input type="text" value="{{ siteinfo.instagram }}" class="form-control" placeholder="Please Type the About Description">
+                <input type="text" value="{{ siteinfo.instagram }}" name="instagram" class="form-control" placeholder="https://instagram.com/example">
             </div>
             <br>
             <div class="form-group">
                 <label for="pwd">Youtube:</label>
-                <input type="text" value="{{ siteinfo.youtube }}" class="form-control" placeholder="Please Type the Email">
+                <input type="text" value="{{ siteinfo.youtube }}" name="youtube" class="form-control" placeholder="https://youtube.com/example">
             </div>
             <br>
             <div class="form-group">
                 <label for="pwd">Pinterest:</label>
-                <input type="text" value="{{ siteinfo.pinterest }}" class="form-control" placeholder="Please Type the Phone">
+                <input type="text" value="{{ siteinfo.pinterest }}" name="pinterest" class="form-control" placeholder="https://pinterest.com/example">
             </div>
             <br>
             <br>

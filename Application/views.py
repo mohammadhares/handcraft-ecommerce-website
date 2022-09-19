@@ -143,7 +143,12 @@ def adminLogin(request):
 
 # HOME PAGE
 def home(request):
-    return render(request, 'dashboard/home/index.html')
+    return render(request, 'dashboard/home/index.html', {
+        'orders' : Order.objects.count(),
+        'customers' : Customer.objects.count(),
+        'products' : Product.objects.count(),
+        'subscribers' : Subscribe.objects.count(),
+    })
 
 # Show Category
 def showCategories(request):
@@ -207,10 +212,10 @@ def updateProduct(request, id):
     if request.method == "POST":
         if len(request.FILES) != 0:
             product.photo = request.FILES['photo']
-        product.title = request.POST['title'],
-        product.description = request.POST['desc'],
-        product.quantity = int(request.POST['quantity']),
-        product.price = int(request.POST['price']),
+        product.title = request.POST['title']
+        product.description = request.POST['desc']
+        product.quantity = int(request.POST['quantity'])
+        product.price = int(request.POST['price'])
         product.save()
         messages.success(request,"Product Updated Successfully")
         return redirect('admin.products')
@@ -227,25 +232,134 @@ def showOrders(request):
     })
 
 def showShipping(request):
-    return render(request, 'dashboard/shipping/shipping.html')
+    return render(request, 'dashboard/shipping/shipping.html', {
+        'shipping' : Shipping.objects.all().order_by('-id')
+    })
+
+def storeShipping(request):
+    if request.method == "POST":
+        Shipping(
+            shipping_type= request.POST['shipping_type'],
+            shipping_zone= request.POST['shipping_zone'],
+            price= request.POST['price']
+        ).save()
+        messages.success(request,"New Shipping Added Successfully")
+        return redirect('admin.shipping')
+
+def updateShipping(request, id):
+    shipping = Shipping.objects.get(id=id)
+    if request.method == "POST":
+        shipping.shipping_type = request.POST['shipping_type']
+        shipping.shipping_zone = request.POST['shipping_zone']
+        shipping.price  = request.POST['price']
+        shipping.save()
+        messages.success(request,"Shipping Updated Successfully")
+        return redirect('admin.shipping')
+
 
 def showUsers(request):
     return render(request, 'dashboard/user/user_list.html', {
         'users' : User.objects.all().order_by('-id')
     })
 
-def showRequests(request):
-    return render(request, 'dashboard/request/request.html')
+def storeUser(request):
+    if request.method == "POST":
+        user = User(
+            firstname= request.POST['firstname'],
+            lastname= request.POST['lastname'],
+            email= request.POST['email'],
+            role= request.POST['role'],
+            password= request.POST['password'],
+            photo= request.FILES['photo'],
+        )
+        user.save()
+        messages.success(request,"User Added Successfully")
+        return redirect('admin.users')
 
+def updateUser(request, id):
+    user = User.objects.get(id=id)
+    if request.method == "POST":
+        if len(request.FILES) != 0:
+            user.photo = request.FILES['photo']
+        user.firstname = request.POST['firstname']
+        user.lastname = request.POST['lastname']
+        user.email = request.POST['email']
+        user.role = request.POST['role']
+        user.password = request.POST['password']
+        user.save()
+        messages.success(request,"User Updated Successfully")
+        return redirect('admin.users')
+
+def destroyUser(request , id):
+    user = User.objects.filter(id=id).delete()
+    if(user):
+        messages.success(request,"User Deleted Successfully")
+        return redirect('admin.users')
+
+def showRequests(request):
+    return render(request, 'dashboard/request/request.html', {
+        'requests' : RequestQuery.objects.all().order_by('-id')
+    })
+
+def replyRequest(request, id):
+    requests = RequestQuery.objects.get(id=id)
+    if request.method == 'POST':
+        requests.response = request.POST['response']
+        requests.save()
+        messages.success(request,"Response Added Successfully")
+        return redirect('admin.requests')
+
+def destroyRequest(request, id):
+    requests = RequestQuery.objects.filter(id=id).delete()
+    if(requests):
+        messages.success(request,"Request Deleted Successfully")
+        return redirect('admin.requests')
+
+# Blogs
 def showBlogs(request):
     return render(request, 'dashboard/website/blog.html', {
         'blogs' : Blog.objects.all().order_by('-id')
     })
 
+def storeBlog(request):
+    if request.method == "POST":
+        blog = Blog(
+            title= request.POST['title'],
+            description= request.POST['desc'],
+            photo= request.FILES['photo']
+        )
+        blog.save()
+        messages.success(request,"Post Published Successfully")
+        return redirect('admin.blogs')
+
+def updateBlog(request, id):
+    blog = Blog.objects.get(id=id)
+    if request.method == "POST":
+        if len(request.FILES) != 0:
+            blog.photo = request.FILES['photo']
+        blog.title = request.POST['title']
+        blog.description = request.POST['desc']
+        blog.save()
+        messages.success(request,"Post Updated Successfully")
+        return redirect('admin.blogs')
+    
+
+def destroyBlog(request , id):
+    blog = Blog.objects.filter(id=id).delete()
+    if(blog):
+        messages.success(request,"Post Deleted Successfully")
+        return redirect('admin.blogs')
+
 def showContacts(request):
     return render(request, 'dashboard/website/contact.html', {
         'contacts' : Contact.objects.all().order_by('-id')
     })
+
+def destroyContact(request , id):
+    contact = Contact.objects.filter(id=id).delete()
+    if(contact):
+        messages.success(request,"Contacts Deleted Successfully")
+        return redirect('admin.contacts')
 
 def showSubscribe(request):
     return render(request, 'dashboard/website/subscribe.html', {
@@ -257,4 +371,26 @@ def showSiteInfo(request):
         'siteinfo' : SiteInfo.objects.first()
     })
 
+def updateSiteInfo(request , id):
+    site = SiteInfo.objects.get(id=id)
+    if request.method == "POST":
+        site.about_title = request.POST['title']
+        site.about_desc = request.POST['desc']
+        site.email = request.POST['email']
+        site.phone = request.POST['phone']
+        site.address = request.POST['address']
+        site.facebook = request.POST['facebook']
+        site.instagram = request.POST['instagram']
+        site.youtube = request.POST['youtube']
+        site.pinterest = request.POST['pinterest']
+        site.save()
+        messages.success(request,"Site Information Updated Successfully")
+        return redirect('admin.site.info')
+
+def AdminLogout(request):
+    del request.session['firstname']
+    del request.session['lastname']
+    del request.session['email']
+    del request.session['photo']
+    return redirect('login')
 # Website
