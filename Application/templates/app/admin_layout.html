@@ -7,9 +7,10 @@
     <meta name="description" content="...">
     <meta name="viewport" content="width=device-width, maximum-scale=5, initial-scale=1">
     <!-- preloading icon font is helping to speed up a little bit -->
+    <link rel="stylesheet" href="{% static '/assets/css/custom.css' %}">
     <link rel="preload" href="{% static 'assets/fonts/flaticon/Flaticon.woff2' %}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{% static '/assets/css/core.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/vendor_bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/css/vendor_bundle.min.css' %}">
     <!-- favicon -->
     <link rel="shortcut icon" href="favicon.ico">
     <style>
@@ -329,10 +330,9 @@
         </div>
       </footer>
     <!-- Core javascripts -->
-    <script src="{% static 'assets/js/core.min.js' %}"></script>
-    <script src="{% static 'assets/js/vendor_bundle.min.js' %}"></script>
-    <script src="{% static 'assets/js/custom.js' %}"></script>
-
+    <script src="{% static '/assets/js/custom.js' %}"></script>
+    <script src="{% static '/assets/js/core.min.js' %}"></script>
+    <script src="{% static '/assets/js/vendor_bundle.min.js' %}"></script>
     <!-- Your custom javascripts -->
   </body>
 </html>

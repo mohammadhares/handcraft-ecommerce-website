@@ -4,7 +4,8 @@
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="home">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Categories</li>
+        <li class="breadcrumb-item active" aria-current="page">Orders</li>
+        <li class="breadcrumb-item active" aria-current="page">Manage Tracking</li>
     </ol>
 </nav>
 <main id="middle" class="flex-fill mx-auto">
@@ -24,7 +25,8 @@
                         <div class="dropdown w-100">
                             <input type="text"
                                 class="dropdown-toggle form-control form-control-sm border-0 shadow-none ps-5 bg-gray-100"
-                                id="category_search" onkeyup="search('category_search' , 'category_table')" placeholder="Category title">
+                                id="track_search" onkeyup="search('track_search' , 'track_table')"
+                                placeholder="Status">
                         </div>
                     </form>
                 </div>
@@ -41,22 +43,28 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalCenteredLabel">Add New Category</h5>
+                                        <h5 class="modal-title" id="modalCenteredLabel">Add Tracking Status</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="category_form" action="/category/store" method="POST"
+                                        <form id="category_form" action="/store/track/{{ order_id }}" method="POST"
                                             enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="mb-3">
-                                                <label for="categorytitle" class="form-label">Category Title</label>
-                                                <input type="text" required name="category" class="form-control"
-                                                    id="categorytitle" placeholder="Ex. Women Clothes">
+                                                <label for="categorytitle" class="form-label">Tracking Status</label>
+                                                <select name="track_status" id="" class="form-control">
+                                                    <option value="1">Packaging</option>
+                                                    <option value="2">Dispatch</option>
+                                                    <option value="3">Transit</option>
+                                                    <option value="4">Source</option>
+                                                    <option value="5">Arrived</option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="formFile" class="form-label">Image</label>
-                                                <input class="form-control" required name="photo" type="file" id="formFile">
+                                                <label for="formFile" class="form-label">Description</label>
+                                                <textarea name="track_message" class="form-control" id="" cols="30"
+                                                    rows="5"></textarea>
                                             </div>
                                         </form>
                                     </div>
@@ -76,40 +84,40 @@
         <div class="card-body pt-1">
             <!-- item list -->
             <div class="table-responsive-md">
-                <table class="table table-align-middle" id="category_table" role="grid" aria-describedby="mobile-page-info">
+                <table class="table table-align-middle" id="track_table" role="grid"
+                    aria-describedby="mobile-page-info">
                     <thead>
                         <tr>
                             <th scope="col" class="small text-muted">ID</th>
-                            <th scope="col" class="small text-muted">Image</th>
-                            <th scope="col" class="small text-muted">Category Title</th>
+                            <th scope="col" class="small text-muted">Tracking Status</th>
+                            <th scope="col" class="small text-muted">Tracking Description</th>
                             <th scope="col" class="small text-muted">Created Date</th>
                             <th scope="col" class="small text-muted">Last Update Date</th>
-                            <th scope="col" class="small text-muted">Status</th>
                             <th scope="col" class="small text-muted">Action</th>
                         </tr>
                     </thead>
                     <tbody id="checkall-list">
                         <!-- item -->
-                        {% for data in category %}
+                        {% for data in tracks %}
                         <tr>
                             <td class="position-relative">#{{ data.id }}</td>
-                            <td>
-                                <!-- image -->
-                                <img class="border border-light p-1" width="50" src="../../../static/{{ data.photo }}"
-                                    alt="...">
-                            </td>
-                            <td class="position-relative">{{ data.name }} </td>
-                            <td class="position-relative">{{ data.created }}</td>
-                            <td class="position-relative">{{ data.updated }}</td>
                             <td class="position-relative">
-                                {% if data.status == 1 %}
-                                <span class="badge bg-success-soft">Active</span>
-                                {% elif data.status == 2 %}
-                                <span class="badge bg-warning-soft">Inactive</span>
-                                {% elif data.status == 3 %}
-                                <span class="badge bg-danger-soft">Unavailable</span>
+                                {% if data.track_status == 1 %}
+                                <span class="badge bg-warning-soft">Packaging</span>
+                                {% elif data.track_status == 2 %}
+                                <span class="badge bg-primary-soft">Dispatch</span>
+                                {% elif data.track_status == 3 %}
+                                <span class="badge bg-primary-soft">Transit</span>
+                                {% elif data.track_status == 4 %}
+                                <span class="badge bg-primary-soft">Source</span>
+                                {% else %}
+                                <span class="badge bg-success-soft">Arrived</span>
                                 {% endif %}
                             </td>
+                            <td class="position-relative">{{ data.track_message }} </td>
+                            <td class="position-relative">{{ data.created }}</td>
+                            <td class="position-relative">{{ data.updated }}</td>
+
                             <td class="dropstart">
                                 <!-- options -->
                                 <a class="btn btn-sm btn-light btn-icon btn-ghost text-muted rounded-circle dropdown-toggle"
@@ -133,19 +141,6 @@
                                 <ul class="dropdown-menu dropdown-menu-clean">
                                     <li>
                                         <a class="dropdown-item" href="" data-bs-toggle="modal"
-                                        data-bs-target="#preview{{data.id}}">
-                                            <svg class="text-muted" width="18px" height="18px"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                                <circle cx="12" cy="12" r="3"></circle>
-                                            </svg>
-                                            <span>Preview</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="" data-bs-toggle="modal"
                                             data-bs-target="#modalCentered{{data.id}}">
                                             <svg class="text-muted" width="18px" height="18px"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -159,43 +154,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/1">
-                                            <svg class="text-muted" width="18px" height="18px"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <polyline points="20 6 9 17 4 12"></polyline>
-                                            </svg>
-                                            <span>Set active</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/2">
-                                            <svg class="text-muted" width="18px" height="18px"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                                            </svg>
-                                            <span>Set inactive</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/3">
-                                            <svg class="text-muted" width="18px" height="18px"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <circle cx="12" cy="12" r="10"></circle>
-                                                <line x1="15" y1="9" x2="9" y2="15"></line>
-                                                <line x1="9" y1="9" x2="15" y2="15"></line>
-                                            </svg>
-                                            <span>Set unavailable</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a onclick="doDelete('Are You Sure to Delete Category?');" class="dropdown-item" href="/category/destroy/{{ data.id }}">
+                                        <a onclick="doDelete('Are You Sure to Delete Track Status?');" class="dropdown-item"
+                                            href="/destroy/track/{{ data.id }}">
                                             <svg class="text-danger" width="18px" height="18px"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -217,26 +177,29 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalCenteredLabel">Edit Category</h5>
+                                                <h5 class="modal-title" id="modalCenteredLabel">Edit Track Status</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form id="category_form{{data.id}}"
-                                                    action="/category/update/{{data.id}}" method="POST"
+                                                    action="/update/track/{{data.id}}" method="POST"
                                                     enctype="multipart/form-data">
                                                     {% csrf_token %}
                                                     <div class="mb-3">
-                                                        <label for="categorytitle" class="form-label">Category
-                                                            Title</label>
-                                                        <input type="text" value="{{ data.name }}" required
-                                                            name="category" class="form-control" id="categorytitle"
-                                                            placeholder="Ex. Women Clothes">
+                                                        <label for="categorytitle" class="form-label">Tracking Status</label>
+                                                        <select name="track_status" id="" class="form-control">
+                                                            <option {% if data.track_status == 1 %} selected {% endif %} value="1">Packaging</option>
+                                                            <option {% if data.track_status == 2 %} selected {% endif %} value="2">Dispatch</option>
+                                                            <option {% if data.track_status == 3 %} selected {% endif %} value="3">Transit</option>
+                                                            <option {% if data.track_status == 4 %} selected {% endif %} value="4">Source</option>
+                                                            <option {% if data.track_status == 5 %} selected {% endif %} value="5">Arrived</option>
+                                                        </select>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="formFile" class="form-label">Image</label>
-                                                        <input class="form-control" name="photo" type="file" 
-                                                            id="formFile">
+                                                        <label for="formFile" class="form-label">Description</label>
+                                                        <textarea name="track_message" class="form-control" id="" cols="30"
+                                                            rows="5">{{ data.track_message }}</textarea>
                                                     </div>
                                                 </form>
                                             </div>
@@ -249,13 +212,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="preview{{data.id}}" data-bs-keyboard="false"
-                                    tabindex="-1" aria-labelledby="modalCenteredLabel" aria-hidden="true">
+                                <div class="modal fade" id="preview{{data.id}}" data-bs-keyboard="false" tabindex="-1"
+                                    aria-labelledby="modalCenteredLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-body">
                                                 <div>
-                                                    <img style="width: 100%;" src="../../../static/{{ data.photo }}" class="img img-responsive" alt="">
+                                                    <img style="width: 100%;" src="../../../static/{{ data.photo }}"
+                                                        class="img img-responsive" alt="">
                                                 </div>
                                             </div>
                                         </div>

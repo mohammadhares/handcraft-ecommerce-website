@@ -29,12 +29,6 @@ urlpatterns = [
     path('admin_login', views.adminLogin, name="admin.login"),
     path('customer/logout', views.logout, name="logout"),
 
-    path('admin/categories', views.showCategories, name="admin.category"),
-    path('category/store', views.storeCategory, name="store.category"),
-    path('category/update/<str:id>', views.updateCategory, name="update.category"),
-    path('category/destroy/<str:id>', views.destroyCategory, name="destroy.category"),
-    path('category/status/<str:id>/<str:status>', views.changeCategoryStatus, name="status.category"),
-
     path('customer/login', views.customerLogin, name="customer.login"),
     path('login/customer', views.loginCustomer, name="login.customer"),
     path('customer/signup', views.customerSignUp, name="customer.signup"),
@@ -46,14 +40,26 @@ urlpatterns = [
     path('contact-us/', views.contactUs, name="contact.us"),
     path('track-order/', views.trackOrder, name="track.order"),
 
+    path('admin/categories', views.showCategories, name="admin.category"),
+    path('category/store', views.storeCategory, name="store.category"),
+    path('category/update/<str:id>', views.updateCategory, name="update.category"),
+    path('category/destroy/<str:id>', views.destroyCategory, name="destroy.category"),
+    path('category/status/<str:id>/<str:status>', views.changeCategoryStatus, name="status.category"),
+
     path('admin/products', views.showProducts, name="admin.products"),
     path('admin/storeProduct', views.storeProduct, name="store.products"),
     path('admin/updateProduct/<str:id>', views.updateProduct, name="update.product"),
-
+    path('product/destroy/<str:id>', views.destroyProduct, name="destroy.product"),
+    path('product/status/<str:id>/<str:status>', views.changeProductStatus, name="status.product"),
 
     path('admin/customers', views.showCustomers, name="admin.customers"),
+    path('customer/destroy/<str:id>', views.customerDestroy, name="customer.destroy"),
 
     path('admin/orders', views.showOrders, name="admin.orders"),
+    path('track/order/<str:id>', views.showTracking, name="track.orders"),
+    path('store/track/<str:id>', views.storeTrack, name="store.track"),
+    path('update/track/<str:id>', views.updateTrack, name="update.track"),
+    path('destroy/track/<str:id>', views.destroyTrack, name="destroy.track"),
 
     path('admin/shipping', views.showShipping, name="admin.shipping"),
     path('store/shipping', views.storeShipping, name="store.shipping"),

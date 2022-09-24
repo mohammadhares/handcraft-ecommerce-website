@@ -143,11 +143,44 @@ def adminLogin(request):
 
 # HOME PAGE
 def home(request):
+    jan_order = Order.objects.filter(created__month=1).count()
+    feb_order = Order.objects.filter(created__month=2).count()
+    mar_order = Order.objects.filter(created__month=3).count()
+    apr_order = Order.objects.filter(created__month=4).count()
+    may_order = Order.objects.filter(created__month=5).count()
+    jun_order = Order.objects.filter(created__month=6).count()
+    jul_order = Order.objects.filter(created__month=7).count()
+    aug_order = Order.objects.filter(created__month=8).count()
+    sep_order = Order.objects.filter(created__month=9).count()
+    oct_order = Order.objects.filter(created__month=10).count()
+    nov_order = Order.objects.filter(created__month=11).count()
+    dec_order = Order.objects.filter(created__month=12).count()
+
+    jan_cust = Customer.objects.filter(created__month=1).count()
+    feb_cust = Customer.objects.filter(created__month=2).count()
+    mar_cust = Customer.objects.filter(created__month=3).count()
+    apr_cust = Customer.objects.filter(created__month=4).count()
+    may_cust = Customer.objects.filter(created__month=5).count()
+    jun_cust = Customer.objects.filter(created__month=6).count()
+    jul_cust = Customer.objects.filter(created__month=7).count()
+    aug_cust = Customer.objects.filter(created__month=8).count()
+    sep_cust = Customer.objects.filter(created__month=9).count()
+    oct_cust = Customer.objects.filter(created__month=10).count()
+    nov_cust = Customer.objects.filter(created__month=11).count()
+    dec_cust = Customer.objects.filter(created__month=12).count()
     return render(request, 'dashboard/home/index.html', {
         'orders' : Order.objects.count(),
         'customers' : Customer.objects.count(),
         'products' : Product.objects.count(),
         'subscribers' : Subscribe.objects.count(),
+        'jan_order' : jan_order, 'feb_order': feb_order , 'mar_order': mar_order,
+        'apr_order' : apr_order, 'may_order': may_order , 'jun_order': jun_order,
+        'jul_order' : jul_order, 'aug_order': aug_order , 'sep_order': sep_order,
+        'oct_order' : oct_order, 'nov_order': nov_order , 'dec_order': dec_order,
+        'jan_cust' : jan_cust, 'feb_cust': feb_cust , 'mar_cust': mar_cust,
+        'apr_cust' : apr_cust, 'may_cust': may_cust , 'jun_cust': jun_cust,
+        'jul_cust' : jul_cust, 'aug_cust': aug_cust , 'sep_cust': sep_cust,
+        'oct_cust' : oct_cust, 'nov_cust': nov_cust , 'dec_cust': dec_cust,
     })
 
 # Show Category
@@ -189,7 +222,7 @@ def changeCategoryStatus(request , id , status):
 
 def showProducts(request):
     return render(request, 'dashboard/product/product.html', {
-        'products' : Product.objects.all().order_by('-id'),
+        'products' : Product.objects.raw("SELECT * FROM application_product INNER JOIN 	application_category ON application_product.category_id = application_category.id"),
         'categories' : Category.objects.all().order_by('-id')
     })
 
@@ -212,6 +245,7 @@ def updateProduct(request, id):
     if request.method == "POST":
         if len(request.FILES) != 0:
             product.photo = request.FILES['photo']
+        product.category_id = request.POST['category']
         product.title = request.POST['title']
         product.description = request.POST['desc']
         product.quantity = int(request.POST['quantity'])
@@ -220,16 +254,61 @@ def updateProduct(request, id):
         messages.success(request,"Product Updated Successfully")
         return redirect('admin.products')
 
+def destroyProduct(request, id):
+    Product.objects.filter(id=id).delete()
+    messages.success(request,"Product Deleted Successfully")
+    return redirect('admin.products')
+
+def changeProductStatus(request , id , status):
+    Product.objects.filter(id=id).update(status=status)
+    messages.success(request,"Product Status Changed")
+    return redirect('admin.products')
 
 def showCustomers(request):
     return render(request, 'dashboard/customer/customer.html', {
         'customers' : Customer.objects.all().order_by('-id')
     })
 
+def customerDestroy(request , id):
+    Customer.objects.filter(id=id).delete()
+    messages.success(request,"Customer Deleted Successfully")
+    return redirect('admin.customers')
+
 def showOrders(request):
     return render(request, 'dashboard/order/order.html', {
-        'orders' : Order.objects.all().order_by('-id')
+        'orders' : Order.objects.raw("SELECT * FROM application_customer INNER JOIN application_order on application_customer.id = application_order.customer_id INNER JOIN application_product ON application_product.id = application_order.product_id;")
     })
+
+def showTracking(request , id):
+    return render(request, 'dashboard/order/tracking.html', {
+        'tracks' : TrackOrder.objects.filter(order_id=id),
+        'order_id': id
+    })
+
+def storeTrack(request , id):
+    if request.method == "POST":
+        TrackOrder(
+            order_id = id,
+            track_status= request.POST['track_status'],
+            track_message= request.POST['track_message'],
+        ).save()
+        messages.success(request,"Track Status Added Successfully")
+        return redirect('/track/order/'+id)
+
+def updateTrack(request , id):
+    track = TrackOrder.objects.get(id=id)
+    if request.method == "POST":
+        track.track_status = request.POST['track_status']
+        track.track_message = request.POST['track_message']
+        track.save()
+        
+        messages.success(request,"Track Status Updated Successfully")
+        return redirect('admin.orders')
+
+def destroyTrack(request , id):
+    TrackOrder.objects.filter(id=id).delete()
+    messages.success(request,"Track Status Deleted Successfully")
+    return redirect('admin.orders')
 
 def showShipping(request):
     return render(request, 'dashboard/shipping/shipping.html', {

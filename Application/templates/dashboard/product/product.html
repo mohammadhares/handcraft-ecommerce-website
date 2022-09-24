@@ -24,7 +24,7 @@
                         <div class="dropdown w-100">
                             <input type="text"
                                 class="dropdown-toggle form-control form-control-sm border-0 shadow-none ps-5 bg-gray-100"
-                                data-bs-toggle="dropdown" data-bs-auto-close="outside" placeholder="Category title">
+                                id="product_search" onkeyup="search('product_search', 'product_table');" placeholder="Product ID, Title">
                         </div>
                     </form>
                 </div>
@@ -64,7 +64,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="categorytitle" class="form-label">Description</label>
-                                                <textarea class="form-control" name="desc" id="" cols="30"
+                                                <textarea class="form-control" name="desc" id="" cols="30" required
                                                     rows="5"></textarea>
                                             </div>
                                             <div class="mb-3">
@@ -79,7 +79,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="formFile" class="form-label">Image</label>
-                                                <input class="form-control" name="photo" type="file" id="formFile">
+                                                <input class="form-control" name="photo" type="file" id="formFile" required >
                                             </div>
                                         </form>
                                     </div>
@@ -99,12 +99,13 @@
         <div class="card-body pt-1">
             <!-- item list -->
             <div class="table-responsive-md">
-                <table class="table table-align-middle" role="grid" aria-describedby="mobile-page-info">
+                <table class="table table-align-middle" role="grid" aria-describedby="mobile-page-info" id="product_table">
                     <thead>
                         <tr>
                             <th scope="col" class="small text-muted">ID</th>
                             <th scope="col" class="small text-muted">Image</th>
                             <th scope="col" class="small text-muted">Title</th>
+                            <th scope="col" class="small text-muted">Category</th>
                             <th scope="col" class="small text-muted">Description</th>
                             <th scope="col" class="small text-muted">Quantity</th>
                             <th scope="col" class="small text-muted">Price</th>
@@ -118,16 +119,17 @@
                         <!-- item -->
                         {% for data in products %}
                         <tr>
-                            <td class="position-relative">{{ data.id }}</td>
+                            <td class="position-relative">#{{ data.id }}</td>
                             <td>
                                 <!-- image -->
-                                <img class="border border-light p-1" width="50" src="../../../static/{{ data.photo }}"
+                                <img class="border border-light p-1 circle" width="50" src="../../../static/{{ data.photo }}"
                                     alt="...">
                             </td>
                             <td class="position-relative">{{ data.title }} </td>
+                            <td class="position-relative">{{ data.name }} </td>
                             <td class="position-relative">{{ data.description }} </td>
                             <td class="position-relative">{{ data.quantity }} </td>
-                            <td class="position-relative">{{ data.price }} </td>
+                            <td class="position-relative">$ {{ data.price }} </td>
                             <td class="position-relative">{{ data.created }}</td>
                             <td class="position-relative">{{ data.updated }}</td>
                             <td class="position-relative">
@@ -188,7 +190,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/1">
+                                        <a class="dropdown-item" href="/product/status/{{ data.id }}/1">
                                             <svg class="text-muted" width="18px" height="18px"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -199,7 +201,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/2">
+                                        <a class="dropdown-item" href="/product/status/{{ data.id }}/2">
                                             <svg class="text-muted" width="18px" height="18px"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -211,7 +213,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/category/status/{{ data.id }}/3">
+                                        <a class="dropdown-item" href="/product/status/{{ data.id }}/3">
                                             <svg class="text-muted" width="18px" height="18px"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -224,8 +226,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a onclick="doDelete('Are You Sure to Delete Category?');" class="dropdown-item"
-                                            href="/category/destroy/{{ data.id }}">
+                                        <a onclick="doDelete('Are You Sure to Delete Product?');" class="dropdown-item"
+                                            href="/product/destroy/{{ data.id }}">
                                             <svg class="text-danger" width="18px" height="18px"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
