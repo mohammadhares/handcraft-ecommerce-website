@@ -1,4 +1,5 @@
 {% load static %}
+{% load total %}
 <!doctype html>
 <html lang="en">
 
@@ -28,28 +29,18 @@
                   <li class="dropdown list-inline-item m-0">
                     <a id="topDDLanguage" href="#" class="py-2 d-inline-block" data-bs-toggle="dropdown"
                       aria-expanded="false" aria-haspopup="true">
-                      <i class="flag flag-us"></i>
-                      <span class="text-muted px-2">English</span>
+                      <i class="float-start fi fi-envelope"></i>
+                      <span class="text-muted px-2">{{ siteInfo.email }}</span>
                     </a>
                   </li>
-                  <!-- /LANGUAGE -->
-                  <!-- CURRENCY -->
-                  <li class="dropdown list-inline-item m-0">
-                    <span class="text-muted">/</span><!-- optional separator -->
-                    <a id="topDDCurrency" href="#" class="py-2 d-inline-block" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      <span class="text-muted px-2">USD</span>
-                    </a>
-                  </li>
-                  <!-- /CURRENCY -->
                 </ul>
               </div>
 
               <div class="d-inline-block float-end">
                 <ul class="list-inline m-0">
                   <li class="dropdown list-inline-item">
-                    <a href="tel:+01-555-5555" class="p-2 d-inline-block fw-medium">
-                      <i class="float-start fi fi-phone"></i> (+93) 708-275-116
+                    <a href="tel:+93{{ siteInfo.phone }}" class="p-2 d-inline-block fw-medium">
+                      <i class="float-start fi fi-phone"></i> +(93) {{ siteInfo.phone }}
                     </a>
                   </li>
                 </ul>
@@ -59,7 +50,6 @@
         </div>
       </div>
       <!-- /TOP BAR -->
-
       <!-- Navbar -->
       <div class="container position-relative">
         <nav class="navbar navbar-expand-lg navbar-light justify-content-lg-between justify-content-md-inherit">
@@ -249,7 +239,7 @@
             <!-- favourites button : visible : desktop only -->
             <li class="list-inline-item mx-1 dropdown d-none d-sm-block">
               <a href="" aria-label="My Favourites" class="d-inline-block text-center text-dark">
-                <span class="badge bg-light text-dark position-absolute end-0 mt-n1 p-1">{{ session.request.wishlist }}</span>
+                <span class="badge bg-warning text-dark position-absolute end-0 mt-n1 p-1">{{ wishlist }}</span>
                 <i class="fi fi-heart-empty fs-4"></i>
                 <span class="d-block small">Favourites</span>
               </a>
@@ -258,7 +248,7 @@
             <li class="list-inline-item mx-1 dropdown">
               <a href="#" aria-label="My Cart" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true"
                 class="d-inline-block text-center text-dark">
-                <span class="badge bg-warning text-dark position-absolute end-0 mt-n1 p-1">{{ session.request.basketCount }}</span>
+                <span class="badge bg-warning text-dark position-absolute end-0 mt-n1 p-1">{{ basketCount }}</span>
                 <i class="fi fi-cart-1 fs-4"></i>
                 <span class="d-block small">Cart</span>
               </a>
@@ -270,33 +260,25 @@
                 <!-- item list -->
                 <div class="max-vh-50 scrollable-vertical">
                   <!-- item -->
+                  {{ total|add:0 }}
+                  {% for data in orders %}
                   <div class="p-3 border-top border-light">
-                    <!-- image -->
                     <div class="ratio ratio-1x1 float-start mt-1 bg-cover"
-                      style="width:40px; background-image:url(demo.files/images/unsplash/products/thumb_330/barrett-ward-fYYUgvHYgpU-unsplash-min.jpg)">
+                      style="width:50px;">
+                      <img src="../../static/{{ data.photo }}" alt="">
                     </div>
                     <a href="#" class="small d-block link-normal">
                       <span class="d-block text-truncate">
-                        1 &times; Product title comes here
+                        {{ data.quantity }} &times; {{ data.title }}
                       </span>
                     </a>
-                    <span class="d-block small mt-1">$196.00</span>
+                    <span class="d-block small mt-1">$ {{ data.price }}</span>
                   </div>
-                  <div class="p-3 border-top border-light">
-                    <div class="ratio ratio-1x1 float-start mt-1 bg-cover"
-                      style="width:40px; background-image:url(demo.files/images/unsplash/products/thumb_330/hardik-sharma-CrPAvN29Nhs-unsplash-min.jpg)">
-                    </div>
-                    <a href="#" class="small d-block link-normal">
-                      <span class="d-block text-truncate">
-                        1 &times; Product title comes here
-                      </span>
-                    </a>
-                    <span class="d-block small mt-1">$56.99</span>
-                  </div>
+                  {% endfor %}
                 </div>
                 <!-- subtotal -->
                 <div class="fs-6 text-align-start border-top border-light px-3 py-2">
-                  Subtotal: <span class="float-end">$196.00</span>
+                  Subtotal: <span class="float-end"></span>
                 </div>
 
 
@@ -443,129 +425,143 @@
     </div>
     <!-- INFO BOX -->
     <!-- Footer -->
-   <!-- Footer -->
-   <footer id="footer" class="bg-gray-900 text-white">
+    <!-- Footer -->
+    <footer id="footer" class="bg-gray-900 text-white">
 
-    <!-- footer cta -->
-    <div class="container tet-white py-5 d-lg-flex flex-row align-items-lg-center">
+      <!-- footer cta -->
+      <div class="container tet-white py-5 d-lg-flex flex-row align-items-lg-center">
 
-      <div class="row g-4 align-items-center">
-        <h3 class="col-lg-6 h2 mb-0">
-          Join our community by using our services and grow your business.
-        </h3>
-        <div class="col text-lg-end">
-          <a href="https://wrapbootstrap.com/theme/smarty-website-admin-rtl-WB02DSN1B" target="_blank" rel="noopener" class="btn btn-warning rounded-pill d-inline-flex align-items-center px-4">
-            <span class="text-dark me-2">Start now</span>
-            <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">  
-              <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
-            </svg>
-          </a>
+        <div class="row g-4 align-items-center">
+          <h3 class="col-lg-8 h2 mb-0">
+            Join Us and Pick Vintage Design of HandCrafts.
+          </h3>
         </div>
       </div>
+      <!-- /footer cta -->
 
-    </div>
-    <!-- /footer cta -->
+      <!-- line divider -->
+      <hr class="bg-gray-500 my-0 container">
 
-    <!-- line divider -->
-    <hr class="bg-gray-500 my-0 container">
-    
-    <div class="container py-5">
+      <div class="container py-5">
 
-      <div class="row g-4">
-        
-        <div class="col-12 col-lg-4 mb-4">
+        <div class="row g-4">
 
-          <!-- logo -->
-          <img width="110" height="38" src="../../static/assets/images/logo/logo_light.svg" alt="...">
+          <div class="col-12 col-lg-4 mb-4">
 
-          <div class="my-4"><!-- copyright -->
-            <p class="small mb-0">&copy; 2022 My Company Inc.</p>
-            <p class="small mb-0">All rights reserved.</p>
+            <!-- logo -->
+            <img width="110" height="38" src="../../static/assets/images/logo/logo_light.svg" alt="...">
+
+            <div class="my-4">
+              <!-- copyright -->
+              <p class="small mb-0">&copy; 2022 Smarty Inc.</p>
+              <p class="small mb-0">All rights reserved.</p>
+            </div>
+
+            <!-- social icons -->
+            <a href="{{ siteInfo.facebook }}" target="_blank"
+              class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener"
+              aria-label="facebook page">
+              <i class="fi fi-social-facebook"></i>
+            </a>
+
+            <a href="{{ siteInfo.instagram }}" target="_blank"
+              class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener"
+              aria-label="twitter page">
+              <i class="fi fi-social-instagram"></i>
+            </a>
+
+            <a href="{{ siteInfo.pinterest }}" target="_blank"
+              class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener"
+              aria-label="linkedin page">
+              <i class="fi fi-social-pinterest"></i>
+            </a>
+
+            <a href="{{ siteInfo.youtube }}" target="_blank"
+              class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener"
+              aria-label="youtube page">
+              <i class="fi fi-social-youtube"></i>
+            </a>
+
           </div>
 
-          <!-- social icons -->
-          <a href="#" class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener" aria-label="facebook page">
-            <i class="fi fi-social-facebook"></i> 
-          </a>
+          <div class="col-12 col-lg-4 mb-4">
 
-          <a href="#" class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener" aria-label="twitter page">
-            <i class="fi fi-social-twitter"></i> 
-          </a>
+            <h3 class="small mb-4">GET IN TOUCH</h3>
 
-          <a href="#" class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener" aria-label="linkedin page">
-            <i class="fi fi-social-linkedin"></i> 
-          </a>
+            <p class="small col-md-10">
+              {{ siteInfo.about_desc }}
+            </p>
 
-          <a href="#" class="btn btn-sm text-white transition-hover-top mb-2 rounded-circle bg-gray-700" rel="noopener" aria-label="youtube page">
-            <i class="fi fi-social-youtube"></i> 
-          </a>
+            <div class="small d-flex align-items-start my-3">
+              <svg class="me-3 flex-none my-1" height="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <ul class="list-unstyled p-0 m-0 w-100">
+                <li>{{ siteInfo.address }}</li>
+              </ul>
+            </div>
 
-        </div>
+            <div class="small d-flex align-items-start my-3">
+              <svg class="me-3 flex-none my-1" height="24px" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
+                </path>
+              </svg>
+              <ul class="list-unstyled p-0 m-0 w-100">
+                <li>Phone: <a href="tel:0093{{ siteInfo.phone }}" class="text-white text-dashed">093 - {{ siteInfo.phone }}</a></li>
+                <li>Email: <a href="mail:{{ siteInfo.email }}" class="text-white text-dashed">{{ siteInfo.email }}</a></li>
+              </ul>
+            </div>
 
-        <div class="col-12 col-lg-4 mb-4">
+          </div>
 
-          <h3 class="small mb-4">GET IN TOUCH</h3>
 
-          <p class="small col-md-10">
-            Smarty is a responsive multipurpose template, created to help you build new projects in no time! Clean, fast, simple!
-          </p>
+          <div class="col-12 col-lg-4 mb-4">
 
-          <div class="small d-flex align-items-start my-3">
-            <svg class="me-3 flex-none my-1" height="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-            <ul class="list-unstyled p-0 m-0 w-100">
-              <li>PO Box 21132</li>
-              <li>Here Weare St, Melbourne</li>
-              <li>Vivas 2355 Australia</li>
+            <h3 class="small mb-4">LEARN MORE</h3>
+
+            <ul class="list-unstyled">
+              <li class="list-item mb-2">
+                <i class="fi fi-arrow-end me-2 smaller"></i>
+                <a class="text-gray-400" href="/contact-us">Contact</a>
+              </li>
+              <li class="list-item mb-2">
+                <i class="fi fi-arrow-end me-2 smaller"></i>
+                <a class="text-gray-400" href="/about-us">About Us</a>
+              </li>
+              <li class="list-item mb-2">
+                <i class="fi fi-arrow-end me-2 smaller"></i>
+                <a class="text-gray-400" href="">Terms & Conditions</a>
+              </li>
+              <li class="list-item mb-2">
+                <i class="fi fi-arrow-end me-2 smaller"></i>
+                <a class="text-gray-400" href="/blog">Blogs</a>
+              </li>
+              <li class="list-item mb-2">
+                <i class="fi fi-arrow-end me-2 smaller"></i>
+                <a class="text-gray-400" href="/shop">Shop</a>
+              </li>
+              <li class="list-item mb-2">
+                <i class="fi fi-arrow-end me-2 smaller"></i>
+                <a class="text-gray-400" href="/track-order">Track Order</a>
+              </li>
+              <li class="list-item mb-2">
+                <i class="fi fi-arrow-end me-2 smaller"></i>
+                <a class="text-gray-400" href="/my-account">My Account</a>
+              </li>
             </ul>
+
           </div>
-
-          <div class="small d-flex align-items-start my-3">
-            <svg class="me-3 flex-none my-1" height="24px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">  
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-            </svg>
-            <ul class="list-unstyled p-0 m-0 w-100">
-              <li>Phone: <a href="tel:18005652390" class="text-white text-dashed">093 - 708 - 275 - 116</a></li>
-              <li>Email: <a href="mail:myemail@gmail.com" class="text-white text-dashed">hares@gmail.com</a></li>
-            </ul>
-          </div>
-
-        </div>
-
-
-        <div class="col-12 col-lg-4 mb-4">
-
-          <h3 class="small mb-4">LEARN MORE</h3>
-
-          <ul class="list-unstyled"> 
-            <li class="list-item mb-2">
-              <i class="fi fi-arrow-end me-2 smaller"></i>
-              <a class="text-gray-400" href="contact-1.html">Contact</a>
-            </li> 
-            <li class="list-item mb-2">
-              <i class="fi fi-arrow-end me-2 smaller"></i>
-              <a class="text-gray-400" href="about-us-1.html">About Us</a>
-            </li> 
-            <li class="list-item mb-2">
-              <i class="fi fi-arrow-end me-2 smaller"></i>
-              <a class="text-gray-400" href="page-terms-and-conditions.html">Terms & Conditions</a>
-            </li> 
-            <li class="list-item mb-2">
-              <i class="fi fi-arrow-end me-2 smaller"></i>
-              <a class="text-gray-400" href="page-cookie.html">GDPR & Cookies</a>
-            </li> 
-          </ul>
 
         </div>
 
       </div>
 
-    </div>
-
-  </footer>
-  <!-- /Footer -->
+    </footer>
+    <!-- /Footer -->
     <!-- /Footer -->
   </div>
   <script src="{% static '/assets/js/core.min.js' %}"></script>

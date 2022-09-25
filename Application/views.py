@@ -22,6 +22,7 @@ def index(request):
             'categories': Category.objects.all(),
             'basketCount': 0,
             'wishlist' : 0,
+            'siteInfo' : SiteInfo.objects.filter(id=1).first(),
         })
     else:
         cid = request.session.get('customer_id')
@@ -30,8 +31,9 @@ def index(request):
             'categories': Category.objects.all(),
             'basketCount': Order.objects.filter(customer_id=cid).count(),
             'wishlist' : WishList.objects.filter(customer_id=cid).count(),
-            'orders': Order.objects.filter(customer_id=cid),
+            'orders': Order.objects.raw("SELECT  title,application_order.quantity , application_order.price, photo , customer_id , product_id , application_order.id  FROM application_order INNER JOIN application_product ON product_id=application_product.id WHERE customer_id="+cid),
             'customer': Customer.objects.filter(id=cid),
+            'siteInfo' : SiteInfo.objects.filter(id=1).first(),
         })
 
 def productDetails(request , id):
@@ -303,7 +305,7 @@ def updateTrack(request , id):
         track.save()
         
         messages.success(request,"Track Status Updated Successfully")
-        return redirect('admin.orders')
+        return redirect(request.META.get('HTTP_REFERER'))
 
 def destroyTrack(request , id):
     TrackOrder.objects.filter(id=id).delete()
