@@ -23,7 +23,7 @@
           </h1>
           <div data-swiper-parallax="-100">
             <!-- parallax directly on button will cancel hover fade -->
-            <a href="#" class="btn btn-lg btn-outline-light shadow-none transition-hover-top">
+            <a href="/shop" class="btn btn-lg btn-outline-light shadow-none transition-hover-top">
               Shop now
               <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                 class="bi bi-arrow-right-short" viewBox="0 0 16 16">
@@ -135,7 +135,7 @@
       <div class="order-2 col-12 col-lg-6 mb-4 mb-2-xs">
         <div
           class="bg-white shadow-md shadow-danger-lg-hover transition-all-ease-250 transition-hover-top rounded show-hover-container p-2 h-100">
-          <a href="#"
+          <a href="/shop"
             class="card position-relative h-100 border-0 rounded text-decoration-none overflow-hidden bg-cover text-white overlay-dark overlay-opacity-0"
             style="background-image:url('../../static/website/banner2.jpg')">
             <div class="card-body p-4" style="height: 230px;">
@@ -143,32 +143,11 @@
                 data-typed-speed-forward="40" data-typed-speed-back="30" data-typed-back-delay="700"
                 data-typed-loop-times="infinite" data-typed-smart-backspace="true" data-typed-shuffle="false"
                 data-typed-cursor="|">&nbsp;</span>
-              <!-- <h2 class="d-block">
-                    Max Air Championship
-                  </h2> -->
-              <!-- <hr class="border-light opacity-2"> -->
-              <!-- price -->
-              <!-- <span class="h5 d-block text-white fw-medium">
-                    <del class="text-white">$220<sup>00</sup></del>
-                    $173<sup>00</sup>
-                  </span> -->
-              <!-- rating -->
-              <!-- <span class="d-block small">
-                    <i class="rating-5 text-warning"></i>
-                    <span class="text-muted">(4.7)</span>
-                  </span> -->
             </div>
 
             <div class="card-footer bg-transparent border-0">
               <hr class="border-light opacity-0">
-              <!-- opional text -->
-              <!-- <span class="smaller float-end fs-6 p-2">
-                    limited
-                  </span> -->
-              <!-- countdown -->
             </div>
-
-
           </a>
 
         </div>
@@ -181,20 +160,21 @@
       <div class="order-1 col-6 col-lg-3">
         <div
           class="bg-white shadow-xs shadow-3d-hover transition-all-ease-250 transition-hover-top rounded show-hover-container p-2 h-100">
-          <a href="" class="d-block text-gray-800">
+          <a href="/product-detail/{{ products.3.id }}" class="d-block text-gray-800">
             <figure class="text-center bg-gradient-radial-light rounded-top overflow-hidden">
-              <img class="img-fluid bg-suprime opacity-9" src="../../static/{{ products.7.photo }}" alt="...">
+              <img class="img-fluid bg-suprime opacity-9" src="../../static/{{ products.3.photo }}" alt="...">
             </figure>
             <span class="d-block fs-6 p-2">
               <!-- rating -->
               <!-- title -->
-              <span class="d-block fw-medium">{{ products.7.title }}</span>
+              <span class="d-block fw-medium">{{ products.3.title }}</span>
               <!-- price -->
               <span class="d-block fw-medium">
                 <del class="text-muted"></del>
-                <span class="text-dark">$ {{ products.7.price }}</span>
+                <span class="text-dark">$ {{ products.3.price }}</span>
               </span>
             </span>
+            
           </a>
         </div>
 
@@ -206,17 +186,17 @@
       <div class="order-lg-2 col-6 col-lg-3">
         <div
           class="bg-white shadow-xs shadow-3d-hover transition-all-ease-250 transition-hover-top rounded show-hover-container p-2 h-100">
-          <a href="" class="d-block text-gray-800">
+          <a href="/product-detail/{{ products.0.id }}" class="d-block text-gray-800">
             <figure class="text-center bg-gradient-radial-light rounded-top overflow-hidden">
-              <img class="img-fluid bg-suprime opacity-9" src="../../static/{{ products.12.photo }}" alt="...">
+              <img class="img-fluid bg-suprime opacity-9" src="../../static/{{ products.0.photo }}" alt="...">
             </figure>
             <span class="d-block fs-6 p-2">
               <!-- title -->
-              <span class="d-block fw-medium"> {{ products.12.title }}</span>
+              <span class="d-block fw-medium"> {{ products.0.title }}</span>
               <!-- price -->
               <span class="d-block fw-medium">
                 <del class="text-muted"></del>
-                <span class="text-dark">$ {{ products.12.price }}</span>
+                <span class="text-dark">$ {{ products.0.price }}</span>
               </span>
             </span>
           </a>
@@ -224,10 +204,6 @@
 
       </div>
       <!-- /item -->
-
-
-
-
 
       {% for data in products %}
       <div class="order-2 col-6 col-lg-3">
@@ -252,6 +228,74 @@
         </div>
       </div>
       {% endfor %}
+      
+      
+    </div>
+    <!-- /product list -->
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="mb-7 text-center px-3">
+      <h2 class="h1 text-center-xs fw-bold">
+        <span class="text-danger">Popular </span> Products
+      </h2>
+      <p class="lead max-w-600 mx-auto">
+        Explore our fresh and new arrivals, up to 30% for the entire week
+      </p>
+    </div>
+    <!-- product list -->
+    <div class="row g-2 g-xl-4">
+      <div class="order-2 col-12 col-lg-6 mb-4 mb-2-xs">
+        <div
+          class="bg-white shadow-md shadow-danger-lg-hover transition-all-ease-250 transition-hover-top rounded show-hover-container p-2 h-100">
+          <a href="/shop"
+            class="card position-relative h-100 border-0 rounded text-decoration-none overflow-hidden bg-cover text-white overlay-dark overlay-opacity-0"
+            style="background-image:url('../../static/website/banner1.jpg')">
+            <div class="card-body p-4" style="height: 230px;">
+              <span class="typed text-warning h5" data-typed-string="Just Arrived|Special Edition|Limited Edition"
+                data-typed-speed-forward="40" data-typed-speed-back="30" data-typed-back-delay="700"
+                data-typed-loop-times="infinite" data-typed-smart-backspace="true" data-typed-shuffle="false"
+                data-typed-cursor="|">&nbsp;</span>
+            </div>
+
+            <div class="card-footer bg-transparent border-0">
+              <hr class="border-light opacity-0">
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+      <!-- /MAIN/FEATURED -->
+
+
+      {% for data in popular %}
+      <div class="order-2 col-6 col-lg-3">
+        <div class="bg-white shadow-xs shadow-3d-hover transition-all-ease-250 
+              transition-hover-top rounded show-hover-container p-2 h-100">
+          <a href="product-detail/{{ data.id }}" class="d-block text-gray-800">
+            <figure class="text-center bg-gradient-radial-light rounded-top overflow-hidden">
+              <img class="img-fluid bg-suprime opacity-9" src="../../static/{{ data.photo }}" alt="...">
+            </figure>
+
+            <span class="d-block fs-6 p-2">
+              <!-- title -->
+              <span class="d-block fw-medium">{{ data.title }}</span>
+              <!-- price -->
+              <span class="d-block fw-medium">
+                <del class="text-muted">{{ data.price }}</del>
+                <span class="text-dark">{{ data.price }}</span>
+              </span>
+
+            </span>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+      
+      
     </div>
     <!-- /product list -->
   </div>

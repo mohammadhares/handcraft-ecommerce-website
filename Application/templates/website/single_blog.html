@@ -1,0 +1,41 @@
+{% extends 'app/website.html' %}
+{% load static %}
+{% block content %}
+			<!-- start :: blog content -->
+			<div class="section">
+				<div class="container"> 
+
+					<div class="row g-xl-5">
+
+						<div class="col-lg-12 order-2 order-lg-1">
+                            <div class="container text-center">
+                                <h2>{{ blog.title }}</h2>
+                            <hr>
+                            <p>
+                                {{ blog.description }}
+                            </p>
+                            <br>
+                            <br>
+                            </div>
+							<!-- FEATURED POST : ALWAYS LAST ADDED -->
+							<a href="blog-page-article-sidebar.html" class="d-block mb-7 position-relative text-dark clearfix text-decoration-none">
+								<figure class="d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
+									<img class="img-fluid rounded" src="../../static/{{ blog.photo }}"  alt="...">
+								</figure>
+
+								<p class="text-muted small text-center">
+									Post Date: <time datetime="2019-12-03">{{ blog.created }}</time>
+								</p>
+								<h2 class="h4"></h2>
+
+							</a>
+						</div>
+					</div>
+
+				</div>
+			</div>	
+			<!-- end :: blog content -->
+{% endblock content %}
+
+
+

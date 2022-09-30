@@ -1,0 +1,43 @@
+{% extends 'app/website.html' %}
+{% load static %}
+{% block content %}
+			<!-- start :: blog content -->
+			<div class="section">
+				<div class="container"> 
+
+					<div class="row g-xl-5">
+
+						<div class="col-lg-12 order-2 order-lg-1">
+                            </div>
+							<!-- FEATURED POST : ALWAYS LAST ADDED -->
+							<a href="blog-page-article-sidebar.html" class="d-block mb-7 position-relative text-dark clearfix text-decoration-none">
+								<figure class="d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
+									<img class="img-fluid rounded" src="../../static/website/banner2.jpg"  alt="...">
+								</figure>
+
+								<p class="text-muted small text-center">
+									Post Date: <time datetime="2019-12-03">{{ siteInfo.created }}</time>
+								</p>
+								<div class="container">
+                                    <h2 class="h4">{{ siteInfo.about_title }}</h2>
+                                <hr>
+                                <p>
+                                    {{ siteInfo.about_desc }}
+                                </p>
+                                <div>
+                                    <small><i>Address: {{ siteInfo.address }}</i></small><br>
+                                    <small><i>Email : {{ siteInfo.email }}</i></small><br>
+                                    <small><i>Phone : {{ siteInfo.phone }}</i></small>
+                                </div>
+                                </div>
+							</a>
+						</div>
+					</div>
+
+				</div>
+			</div>	
+			<!-- end :: blog content -->
+{% endblock content %}
+
+
+

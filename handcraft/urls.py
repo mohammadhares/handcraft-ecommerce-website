@@ -36,8 +36,12 @@ urlpatterns = [
     path('customer/add-cart/<str:id>' , views.addCart, name="add.cart"),
 
     path('shop/', views.shopList, name="shop.list"),
+    path('search-category/<str:id>', views.searchCategory, name="search.category"),
     path('blog/', views.blogList, name="blog.list"),
+    path('single-blog/<str:id>', views.getSingleBlog, name="single.blog"),
     path('contact-us/', views.contactUs, name="contact.us"),
+    path('store-contact', views.storeContact , name="store.contact"),
+    path('about-us/', views.aboutUs, name="about.us"),
     path('track-order/', views.trackOrder, name="track.order"),
 
     path('admin/categories', views.showCategories, name="admin.category"),
@@ -87,4 +91,12 @@ urlpatterns = [
     path('admin/site-info', views.showSiteInfo, name="admin.site.info"),
     path('update/site-info/<str:id>', views.updateSiteInfo, name="update.siteInfo"),
 
+    path('subscribe', views.subscribe , name="subscribe.user"),
+    path('cart', views.getCartPage , name="cart.user"),
+    path('account', views.myAccount , name="myaccount.user"),
+    path('wishlist', views.myWishlist , name="wishlist.user"),
+
+    path('search', views.searchData , name="search.data"),
+
+    path('info', views.getInfo, name="get.info"),
 ]

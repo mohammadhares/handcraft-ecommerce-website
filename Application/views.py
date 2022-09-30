@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from requests.sessions import session
 from django.contrib import messages
+from django.http import JsonResponse
 from .models import *
 
 
@@ -16,24 +17,25 @@ def Customer_login_required(function):
 # Website Methods
 # Root of Application / 
 def index(request):
+    NewProductsList = Product.objects.all().reverse()[:8]
+    PopularProductList = Product.objects.all()[:10]
+    category = Category.objects.all()
+
+
     if not (request.session.get('customer_id')):
         return render(request, 'website/index.html', {
-            'products': Product.objects.all(),
-            'categories': Category.objects.all(),
-            'basketCount': 0,
-            'wishlist' : 0,
-            'siteInfo' : SiteInfo.objects.filter(id=1).first(),
+            'products': NewProductsList ,
+            'popular' : PopularProductList,
+            'categories': category,
         })
     else:
         cid = request.session.get('customer_id')
+        basketCount = Order.objects.filter(customer_id=cid).count()
+        wishlist = WishList.objects.filter(customer_id=cid).count()
         return render(request, 'website/index.html', {
-            'products': Product.objects.all(),
-            'categories': Category.objects.all(),
-            'basketCount': Order.objects.filter(customer_id=cid).count(),
-            'wishlist' : WishList.objects.filter(customer_id=cid).count(),
-            'orders': Order.objects.raw("SELECT  title,application_order.quantity , application_order.price, photo , customer_id , product_id , application_order.id  FROM application_order INNER JOIN application_product ON product_id=application_product.id WHERE customer_id="+cid),
-            'customer': Customer.objects.filter(id=cid),
-            'siteInfo' : SiteInfo.objects.filter(id=1).first(),
+            'products': NewProductsList,
+            'popular' : PopularProductList,
+            'categories': category,
         })
 
 def productDetails(request , id):
@@ -99,11 +101,32 @@ def shopList(request):
 def blogList(request):
     return render(request, 'website/blog.html', {
         'blogs': Blog.objects.all(),
-        'categories': Category.objects.all(),
+    })
+
+def getSingleBlog(request , id):
+    return render(request, 'website/single_blog.html', {
+        'blog': Blog.objects.filter(id=id).first()
     })
 
 def contactUs(request):
-    return render(request, 'website/contactus.html')
+    return render(request, 'website/contactus.html', {
+        'siteInfo' : SiteInfo.objects.filter(id=1).first()
+    })
+
+def storeContact(request):
+    if request.method == "POST":
+        Contact(
+            subject= request.POST['subject'],
+            email= request.POST['email'],
+            message = request.POST['message']
+        ).save()
+        messages.success(request,"You Messaged US Successfully")
+        return redirect(request.META.get('HTTP_REFERER'))
+
+def aboutUs(request):
+     return render(request, 'website/about.html', {
+        'siteInfo' : SiteInfo.objects.filter(id=1).first()
+    })
 
 def trackOrder(request):
     return render(request, 'website/track-order.html')
@@ -468,10 +491,95 @@ def updateSiteInfo(request , id):
         messages.success(request,"Site Information Updated Successfully")
         return redirect('admin.site.info')
 
+def subscribe(request):
+    if request.method == "POST":
+        Subscribe(
+            email= request.POST['subscriber_email'],
+        ).save()
+
+        messages.success(request,"You Subscribed Successfully")
+        return redirect(request.META.get('HTTP_REFERER'))
+
+@Customer_login_required
+def getCartPage(request):
+    return render(request, 'website/card.html')
+
+@Customer_login_required
+def myAccount(request):
+    return render(request, 'website/myaccount.html')
+
+@Customer_login_required
+def myWishlist(request):
+    return render(request, 'website/wishlist.html')
+
+
+def searchData(request):
+    search = request.GET['data']
+    products = Product.objects.filter(title__icontains=search) | Product.objects.filter(description__icontains=search)
+    return render(request, 'website/search.html', {
+        'products' : products,
+        'search' : search
+    })
+
+
+def searchCategory(request, id):
+    return render(request, 'website/shop.html', {
+        'products' : Product.objects.filter(category_id=id),
+        'categories' : Category.objects.all(),
+    })
+
 def AdminLogout(request):
     del request.session['firstname']
     del request.session['lastname']
     del request.session['email']
     del request.session['photo']
     return redirect('login')
+
+
+def getInfo(request):
+    siteInfo = SiteInfo.objects.filter(id=1).first()
+    title = siteInfo.about_title
+    desc = siteInfo.about_desc
+    email = siteInfo.email
+    phone = siteInfo.phone
+    address = siteInfo.address
+    facebook = siteInfo.facebook
+    instagram = siteInfo.instagram
+    youtube = siteInfo.youtube
+    pinterest = siteInfo.pinterest
+     
+    if not (request.session.get('customer_id')):
+        return JsonResponse({
+            'basketCount': 0,
+            'wishlist' : 0,
+            'customer' : 0,
+            'title' : title , 
+            'desc' : desc,
+            'email' : email,
+            'phone' : phone,
+            'address' : address,
+            'facebook' : facebook,
+            'instagram' : instagram,
+            'youtube' : youtube,
+            'pinterest' : pinterest,
+        })
+    else:
+        cid = request.session.get('customer_id')
+        basketCount = Order.objects.filter(customer_id=cid).count()
+        wishlist = WishList.objects.filter(customer_id=cid).count()
+        customer = Customer.objects.filter(id=cid).first()
+        return JsonResponse({
+            'basketCount': basketCount,
+            'wishlist' : wishlist,
+            'customer' : customer.firstname+" "+customer.lastname,
+            'title' : title , 
+            'desc' : desc,
+            'email' : email,
+            'phone' : phone,
+            'address' : address,
+            'facebook' : facebook,
+            'instagram' : instagram,
+            'youtube' : youtube,
+            'pinterest' : pinterest,
+        })
 # Website

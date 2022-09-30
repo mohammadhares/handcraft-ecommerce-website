@@ -10,39 +10,24 @@
 
         <div class="row g-xl-5">
             <div class="col-12 col-lg-8 mb-4">
-                <form novalidate action="https://smarty.stepofweb.com/5.0.3/html_frontend/php/contact_form.php"
-                    method="POST" data-ajax-container="#ajax_dd_contact_response_container" data-ajax-update-url="false"
-                    data-ajax-show-loading-icon="true" data-ajax-callback-function="" data-error-scroll-up="false"
-                    data-ajax-control-alerts="true" data-ajax-control-alert-succes="#contactSuccess"
-                    data-ajax-control-alert-unexpected="#contactErrorUnexpected"
-                    data-ajax-control-alert-mandaroty="#contactErrorMandatory"
-                    data-error-toast-text="<i class='fi fi-circle-spin fi-spin float-start'></i> Please, complete all required fields!"
-                    data-error-toast-delay="2000" data-error-toast-position="bottom-center" class="bs-validate js-ajax">
-                    <input type="hidden" name="action" value="contact_form_submit" tabindex="-1">
-                  
-                    <input type="text" name="norobot" value="" class="hide" tabindex="-1">
+                <form  action="/store-contact" 
+                    method="POST">
+                    {% csrf_token %}
                     <!-- -->
 
                     <div class="form-floating mb-3">
-                        <input required placeholder="Name" id="contact_name" name="contact_name" type="text"
+                        <input required placeholder="Name" id="contact_name" name="subject" type="text"
                             class="form-control">
-                        <label for="contact_name">Name</label>
+                        <label for="contact_name">Subject</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input required placeholder="Email" id="contact_email" name="contact_email" type="email"
+                        <input required placeholder="Email" id="contact_email" name="email" type="email"
                             class="form-control">
                         <label for="contact_email">Email</label>
                     </div>
-
                     <div class="form-floating mb-3">
-                        <input required placeholder="Phone" id="contact_phone" name="contact_phone" type="text"
-                            class="form-control">
-                        <label for="contact_phone">Phone</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <textarea required placeholder="Message" id="contact_message" name="contact_message"
+                        <textarea required placeholder="Message" id="contact_message" name="message"
                             class="form-control" rows="3" style="min-height:120px"></textarea>
                         <label for="contact_message">Message</label>
                     </div>
@@ -65,35 +50,6 @@
                         </div>
 
                     </div>
-                    <!-- /GDPR CONSENT -->
-
-
-
-
-                    <!-- 
-									Server detailed error
-									!ONLY! If debug is enabled!
-									Else, shown ony "Server Error!"
-								-->
-                    <div id="ajax_dd_contact_response_container"></div>
-
-                    <!-- {:err:unexpected:} internal server error -->
-                    <div id="contactErrorUnexpected" class="hide alert alert-danger p-3">
-                        Unexpected Error!
-                    </div>
-
-                    <!-- {:err:required:} mandatory fields -->
-                    <div id="contactErrorMandatory" class="hide alert alert-danger p-3">
-                        Please, review your data and try again!
-                    </div>
-
-                    <!-- {:success:} message sent -->
-                    <div id="contactSuccess" class="hide alert alert-success p-3">
-                        Thank you for your message!
-                    </div>
-
-
-
 
                     <button type="submit" class="btn btn-primary w-100">
                         Send Message
@@ -115,12 +71,14 @@
                     </div>
 
                     <div>
-                        <h2 class="fs-5">My Company Inc.</h2>
+                        <h2 class="fs-5">{{ siteInfo.about_title }}.</h2>
                         <ul class="list-unstyled m-0 fs-6">
-                            <li class="list-item text-muted">VAT: 0123456</li>
-                            <li class="list-item text-muted">BANK: GE29 NB0 000 0001 0190 4917</li>
-                            <li class="list-item text-muted">Georgia Bank</li>
-                            <li class="mt-3 list-item text-muted">Road 741, No.44, New York / United States</li>
+                            <li class="list-item text-muted">
+                                {{ siteInfo.about_desc }}
+                            </li>
+                            <li class="mt-3 list-item text-muted">
+                                {{ siteInfo.address }}
+                            </li>
                         </ul>
                     </div>
 
@@ -136,8 +94,7 @@
                     <div>
                         <h3 class="h5"> Working Hours</h3>
                         <ul class="list-unstyled m-0 fs-6">
-                            <li class="list-item text-muted">Monday &ndash; Friday: 09:00 – 18:00</li>
-                            <li class="list-item text-muted">Sunday: 09:00 – 12:00</li>
+                            <li class="list-item text-muted">Sat &ndash; Friday: 24 / 7</li>
                         </ul>
                     </div>
 
@@ -151,13 +108,11 @@
                     </div>
 
                     <div>
-                        <h3 class="h5"> Phone Number</h3>
+                        <h3 class="h5"> Phone / Email </h3>
                         <ul class="list-unstyled m-0">
                             <li class="list-item mb-2 text-gray-500">
-                                <a class="link-muted" href="tel:7853889450">785-388-9450</a>
-                            </li>
-                            <li class="list-item mb-2 text-gray-500">
-                                <a class="link-muted" href="tel:3162881850">316-288-1850</a>
+                                <a class="link-muted" href="tel:7853889450">{{ siteInfo.phone }}</a><br>
+                                <a class="link-muted" href="tel:7853889450">{{ siteInfo.email }}</a>
                             </li>
                         </ul>
                     </div>
