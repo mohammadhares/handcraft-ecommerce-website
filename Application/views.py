@@ -514,6 +514,11 @@ def getCartPage(request):
         'orders' : orders,
     })
 
+def removeCart(request, id):
+    Order.objects.filter(id=id).delete()
+    messages.success(request,"You Removed Form Cart Successfully")
+    return redirect(request.META.get('HTTP_REFERER'))
+
 def checkout(request , total):
     cid = request.session.get('customer_id')
     shipping = Shipping.objects.all()
@@ -569,6 +574,15 @@ def UpdateAccount(request, id):
         messages.success(request,"Your Account Update Successfully")
         return redirect(request.META.get('HTTP_REFERER'))
 
+def addWishlist(request , id):
+    cid = request.session.get('customer_id')
+    WishList(
+        customer_id = cid , 
+        product_id = id 
+    ).save()
+    messages.success(request,"Your Account Update Successfully")
+    return redirect(request.META.get('HTTP_REFERER'))
+
 
 @Customer_login_required
 def myWishlist(request):
@@ -617,8 +631,21 @@ def sendRefundOrder(request , id):
 
 @Customer_login_required
 def accountSetting(request):
-    return render(request, 'website/account_setting.html')
+    cid = request.session.get('customer_id')
+    payments = PaymentCard.objects.filter(customer_id=cid).first()
+    return render(request, 'website/account_setting.html', {
+        'payment' : payments,
+    })
 
+def updateCard(request , id):
+    paymentCard = PaymentCard.objects.get(id=id)
+    if request.method == "POST":
+        paymentCard.card_no = request.POST['card_no']
+        paymentCard.card_cvc = request.POST['cvc']
+        paymentCard.card_exp = request.POST['card_exp']
+        paymentCard.save()
+        messages.success(request,"Card Payments Updated Successfully")
+        return redirect(request.META.get('HTTP_REFERER'))
 
 def searchData(request):
     search = request.GET['data']

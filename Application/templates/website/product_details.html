@@ -16,7 +16,7 @@
                                 <div class="thumbnail-shadow-drop">
                                     <div class="overflow-hidden position-relative">
                                         <div class="animate-shine">
-                                            <img src="../../static/{{ product.0.photo }}" alt="..."
+                                            <img src="../../static/{{ product.0.photo }}" alt=""
                                                 class="img-fluid max-h-500 max-h-300-xs bg-suprime my-5 mx-4 opacity-9 animate-bounceinup">
                                         </div>
                                     </div>
@@ -128,12 +128,8 @@
                             </form>
 
                             <!-- favourites button (delete if not needed) -->
-                            <a href="#"
-                                class="btn-toggle btn btn-lg btn-light d-flex justify-content-center align-items-center px-lg-4"
-                                data-bs-toggle="tooltip" data-bs-original-title="add to favourite"
-                                data-toggle-ajax-url-on="demo.files/php/demo.ajax_request7cd1.html?product_id=1&amp;action=add_to_favourite"
-                                data-toast-success-message="Added to your favourite!"
-                                data-toast-success-position="bottom-center">
+                            <a href="/add-wishlist/{{ product.0.id }}"
+                                class="btn-toggle btn btn-lg btn-light d-flex justify-content-center align-items-center px-lg-4">
                                 <i class="fs-6 m-0 fi fi-heart-empty">
                                     <!-- heart icon -->
                                 </i>

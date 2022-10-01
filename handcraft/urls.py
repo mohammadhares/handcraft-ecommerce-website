@@ -93,17 +93,20 @@ urlpatterns = [
 
     path('subscribe', views.subscribe , name="subscribe.user"),
     path('cart', views.getCartPage , name="cart.user"),
+    path('remove-cart/<str:id>', views.removeCart , name="remove.cart"),
     path('checkout/<str:total>', views.checkout, name="checkout.user"),
     path('place-order', views.placeOrder, name="place.order"),
     path('account', views.myAccount , name="myaccount.user"),
     path('update-account/<str:id>', views.UpdateAccount , name="update.customer"),
     path('wishlist', views.myWishlist , name="wishlist.user"),
+    path('add-wishlist/<str:id>', views.addWishlist , name="add.Wishlist"),
     path('remove-wishlist/<str:id>', views.removeWishlist , name="remove.wishlist"),
     path('myorders', views.myOrders , name="myorders.user"),
     path('track-myorder/<str:id>', views.trackMyOrder , name="track.myorder"),
     path('refund/<str:id>', views.refundOrder , name="refund.myorder"),
     path('send-refund/<str:id>', views.sendRefundOrder , name="send.refund.myorder"),
     path('account-setting', views.accountSetting , name="account.setting"),
+    path('update-card/<str:id>', views.updateCard , name="update.card"),
 
     path('search', views.searchData , name="search.data"),
 

@@ -95,7 +95,7 @@
               </div>
             </div>
             <!-- search suggestion container -->
-            <div class="sow-search-container w-100 p-0 hide shadow-md" id="sow-search-container">
+            <div class="sow-search-container w-100 p-0 hide shadow-md" >
               <div class="sow-search-container-wrapper">
                 <!-- main search container -->
                 <div class="sow-search-loader p-3 text-center hide">
@@ -104,8 +104,8 @@
                 <div class="sow-search-content rounded w-100 scrollable-vertical"></div>
               </div>
             </div>
-            <div class="sow-search-backdrop backdrop-dark hide">
-            </div>
+            <!-- <div class="sow-search-backdrop backdrop-dark hide">
+            </div> -->
           </form>
           <!-- /SEARCH -->
           <ul class="list-inline list-unstyled mb-0 d-flex align-items-end">
@@ -124,8 +124,6 @@
                 <span class="d-block small">Account</span>
               </a>
             </li>
-
-
             <!-- favourites button : visible : desktop only -->
             <li class="list-inline-item mx-1 dropdown d-sm-block">
               <a href="/wishlist" aria-label="My Favourites" class="d-inline-block text-center text-dark">
@@ -177,7 +175,7 @@
                 <!-- Menu -->
                 {% if request.session.customer_name  %}
                 <li class="nav-item">
-                  <a href="/account" style="font-weight: bolder; color: black; " class="nav-link"> HI, {{ request.session.customer_name }}  </a>
+                  <a href="/account" style="font-weight: bolder; color: black;" class="nav-link"> HI, {{ request.session.customer_name }}  </a>
                 </li>
                 {% endif %}
 

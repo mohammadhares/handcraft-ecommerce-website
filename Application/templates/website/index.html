@@ -44,7 +44,7 @@
         <div class="position-relative container z-index-10 text-white text-center" data-aos="fade-in"
           data-aos-delay="150" data-aos-offset="0">
 
-          <h2 class="display-3 mb-4 fw-bold"  data-swiper-parallax="-300">
+          <h2 class="display-3 mb-4 fw-bold" data-swiper-parallax="-300">
             Fashion collection
           </h2>
 
@@ -174,7 +174,7 @@
                 <span class="text-dark">$ {{ products.3.price }}</span>
               </span>
             </span>
-            
+
           </a>
         </div>
 
@@ -209,6 +209,20 @@
       <div class="order-2 col-6 col-lg-3">
         <div class="bg-white shadow-xs shadow-3d-hover transition-all-ease-250 
               transition-hover-top rounded show-hover-container p-2 h-100">
+          <div
+            class="position-absolute top-0 end-0 text-align-end z-index-3 m-3 show-hover-item d-none d-sm-inline-block"
+            style="width:60px">
+            <!-- add to favourite : logged in -->
+            <a href="/add-wishlist/{{ data.id }}" class="btn-toggle btn bg-white shadow-lg btn-sm rounded-circle mb-2"
+              data-toast-success-position="bottom-center">
+              <i class="fi fi-heart-slim"></i>
+            </a>
+
+            <a href="/product-detail/{{ data.id }}" class="btn btn-danger shadow-lg btn-sm rounded-circle mb-2" title=""
+              data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="add to cart">
+              <i class="fi fi-cart-1"></i>
+            </a>
+          </div>
           <a href="product-detail/{{ data.id }}" class="d-block text-gray-800">
             <figure class="text-center bg-gradient-radial-light rounded-top overflow-hidden">
               <img class="img-fluid bg-suprime opacity-9" src="../../static/{{ data.photo }}" alt="...">
@@ -228,8 +242,8 @@
         </div>
       </div>
       {% endfor %}
-      
-      
+
+
     </div>
     <!-- /product list -->
   </div>
@@ -275,6 +289,20 @@
       <div class="order-2 col-6 col-lg-3">
         <div class="bg-white shadow-xs shadow-3d-hover transition-all-ease-250 
               transition-hover-top rounded show-hover-container p-2 h-100">
+          <div
+            class="position-absolute top-0 end-0 text-align-end z-index-3 m-3 show-hover-item d-none d-sm-inline-block"
+            style="width:60px">
+            <!-- add to favourite : logged in -->
+            <a href="/add-wishlist/{{ data.id }}" class="btn-toggle btn bg-white shadow-lg btn-sm rounded-circle mb-2"
+              data-toast-success-position="bottom-center">
+              <i class="fi fi-heart-slim"></i>
+            </a>
+
+            <a href="/product-detail/{{ data.id }}" class="btn btn-danger shadow-lg btn-sm rounded-circle mb-2" title=""
+              data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="add to cart">
+              <i class="fi fi-cart-1"></i>
+            </a>
+          </div>
           <a href="product-detail/{{ data.id }}" class="d-block text-gray-800">
             <figure class="text-center bg-gradient-radial-light rounded-top overflow-hidden">
               <img class="img-fluid bg-suprime opacity-9" src="../../static/{{ data.photo }}" alt="...">
@@ -294,8 +322,8 @@
         </div>
       </div>
       {% endfor %}
-      
-      
+
+
     </div>
     <!-- /product list -->
   </div>
