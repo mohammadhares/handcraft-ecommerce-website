@@ -15,6 +15,9 @@
 
 <body class="header-sticky">
   <div id="wrapper">
+    <div>
+      {%  include 'app/message.html' %}
+    </div>
     <!-- Header -->
     <header id="header" class="shadow-xs">
       <!-- TOP BAR -->
@@ -116,42 +119,15 @@
             </li>
             <!-- my account -->
             <li class="list-inline-item mx-1 dropdown">
-              <a href="/account" aria-label="My Account" id="dropdownAccountOptions" data-bs-toggle="dropdown"
-                aria-expanded="false" aria-haspopup="true" class="d-inline-block text-center text-dark">
+              <a href="/account" aria-label="My Account" class="d-inline-block text-center text-dark">
                 <i class="fi fi-users fs-4"></i>
                 <span class="d-block small">Account</span>
               </a>
-              <!-- dropdown -->
-              <div aria-labelledby="dropdownAccountOptions"
-                class="list-unstyled dropdown-menu dropdown-menu-clean dropdown-click-ignore end-0 py-2 rounded-xl"
-                style="min-width:215px;">
-                {% if request.session.customer_id %}
-                <div class="dropdown-header px-4 mb-1 text-wrap fw-medium">{{ request.session.customer_name }}</div>
-                {% endif %}
-                <div class="dropdown-divider mb-3"></div>
-                <a class="dropdown-item active" href="account-index.html">
-                  <svg class="text-gray-600 float-start" width="18px" height="18px" viewBox="0 0 16 16"
-                    xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                    <path fill-rule="evenodd"
-                      d="M8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z">
-                    </path>
-                    <path fill-rule="evenodd"
-                      d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z">
-                    </path>
-                  </svg>
-                  <span>My account</span>
-                </a>
-                <div class="dropdown-divider mt-3"></div>
-                <a href="/customer/logout" title="Log Out" class="dropdown-item mt-1">
-                  <i class="fi fi-power float-start"></i>
-                  Log Out
-                </a>
-              </div>
             </li>
 
 
             <!-- favourites button : visible : desktop only -->
-            <li class="list-inline-item mx-1 dropdown d-none d-sm-block">
+            <li class="list-inline-item mx-1 dropdown d-sm-block">
               <a href="/wishlist" aria-label="My Favourites" class="d-inline-block text-center text-dark">
                 <span class="badge bg-warning text-dark position-absolute end-0 mt-n1 p-1" id="wishlist"></span>
                 <i class="fi fi-heart-empty fs-4"></i>
@@ -199,6 +175,12 @@
               <!-- /navbar : mobile menu -->
               <ul class="navbar-nav navbar-sm custom-navbar">
                 <!-- Menu -->
+                {% if request.session.customer_name  %}
+                <li class="nav-item">
+                  <a href="/account" style="font-weight: bolder; color: black; " class="nav-link"> HI, {{ request.session.customer_name }}  </a>
+                </li>
+                {% endif %}
+
                 <li class="nav-item {% if request.path == '/' %} active {% endif %}">
                   <a href="/" class="nav-link">Home</a>
                 </li>
@@ -211,9 +193,9 @@
                   <a href="/blog" class="nav-link">Blog</a>
                 </li>
                 
-                <li class="nav-item {% if request.path == '/track-order/' %} active {% endif %}">
+                <!-- <li class="nav-item {% if request.path == '/track-order/' %} active {% endif %}">
                   <a href="/track-order" class="nav-link">Track Order</a>
-                </li>
+                </li> -->
 
                 <li class="nav-item {% if request.path == '/contact-us/' %} active {% endif %}">
                   <a href="/contact-us" class="nav-link">Contact Us</a>
@@ -379,10 +361,10 @@
                 <i class="fi fi-arrow-end me-2 smaller"></i>
                 <a class="text-gray-400" href="/shop">Shop</a>
               </li>
-              <li class="list-item mb-2">
+              <!-- <li class="list-item mb-2">
                 <i class="fi fi-arrow-end me-2 smaller"></i>
                 <a class="text-gray-400" href="/track-order">Track Order</a>
-              </li>
+              </li> -->
               <li class="list-item mb-2">
                 <i class="fi fi-arrow-end me-2 smaller"></i>
                 <a class="text-gray-400" href="/my-account">My Account</a>

@@ -1,0 +1,287 @@
+{% extends 'app/website.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container pb-7 pt-5">
+
+    <div class="row g-4">
+
+        <div class="col-lg-7">
+            <!-- account, address, payment -->
+
+            <!-- 
+          Checkout form -->
+
+            <form id="form-checkout" novalidate class="bs-validate" method="post"
+                action="/place-order">
+                {% csrf_token %}
+                <div class="card mb-3">
+                    <div class="card-header fs-4 fw-bold py-3">Delivery</div>
+                    <div class="card-body p-md-4">
+
+
+
+                        <!-- #checkout-shipping -->
+                        <div class="mb-5">
+
+                            <div class="fs-5 mb-3 fw-bold">Shipping address</div>
+                            <div id="checkout-shipping" class="position-relative">
+
+                                <div id="checkout-shipping-form" class="row g-3">
+
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input required type="text" class="form-control shadow-none"
+                                                id="shipping__full_name" name="firstname"
+                                                placeholder="Full name" value="{{ customer.firstname }}">
+                                            <label for="shipping__full_name"
+                                                class="text-truncate w-100">Firstname</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input required type="text" class="form-control shadow-none"
+                                                id="shipping__full_name" name="lastname"
+                                                placeholder="Full name" value="{{ customer.lastname }}">
+                                            <label for="shipping__full_name"
+                                                class="text-truncate w-100">Lastname</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="form-floating">
+                                            <input required type="text" class="form-control shadow-none"
+                                                id="shipping__phone_number" name="phone"
+                                                placeholder="Phone" value="{{ customer.phone }}">
+                                            <label for="shipping__phone_number"
+                                                class="text-truncate w-100">Phone</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <select name="shipping_zone" id="" class="form-control">
+                                                {% for data in shipping %}
+                                                <option value="{{ data.shipping_zone }}">{{ data.shipping_zone }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="shipping__address_1" class="text-truncate w-100">Shipping Zone</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input required type="text" class="form-control shadow-none"
+                                                id="shipping__address_1" name="ship_address"
+                                                placeholder="Address" value="">
+                                            <label for="shipping__address_1" class="text-truncate w-100">Address
+                                                (street, number, apartament, etc)</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <!-- #checkout-shipping-rate -->
+
+
+
+                        <!-- #checkout-payment -->
+                        <div class="mb-3 lh-1">
+                            <span class="fs-5 fw-bold">Payment method</span>
+                        </div>
+                        <div id="checkout-payment" class="position-relative">
+
+                            <div class="py-2">
+                                <div class="form-check">
+                                    <input checked class="form-check-input form-check-input-primary" type="radio"
+                                        id="payment__paypal" name="method[payment]" value="paypal">
+                                    <label class="form-check-label user-select-none" for="payment__paypal">
+                                        Phone
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="py-2">
+                                <div class="form-check">
+                                    <input data-bs-toggle="collapse" data-bs-target="#checkout-billing"
+                                        class="form-check-input form-check-input-primary" type="radio"
+                                        id="payment__card" name="method[payment]" value="card">
+                                    <label class="form-check-label user-select-none" for="payment__card">
+                                        Credit card
+                                    </label>
+                                </div>
+                            </div>
+
+
+
+                            <div class="py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input form-check-input-primary" type="radio"
+                                        id="payment__cash" name="method[payment]" value="cash">
+                                    <label class="form-check-label user-select-none" for="payment__cash">
+                                        Cash on delivery
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- #checkout-billing -->
+                <div id="checkout-billing" class="collapse">
+                    <div class="mb-5">
+                        <div class="fs-5 mb-3 fw-bold">Billing address</div>
+
+                        <div id="checkout-billing-form" class="row g-3 ">
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control shadow-none" id="billing__full_name"
+                                        name="card_no" placeholder="Card No" value="">
+                                    <label for="billing__full_name" class="text-truncate w-100">Card No</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control shadow-none" id="billing__full_name"
+                                        name="cvc" placeholder="CVC" value="">
+                                    <label for="billing__full_name" class="text-truncate w-100">CVC</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control shadow-none" id="billing__full_name"
+                                        name="expire_date" placeholder="Expire Date" value="">
+                                    <label for="billing__full_name" class="text-truncate w-100">Expired Date</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <!-- preview items -->
+
+
+                <!-- terms -->
+                <div class="card mb-3">
+                    <div class="card-body">
+
+                        <h4 class="fs-6 fw-bold">How secure is your personal data?</h4>
+                        <p class="smaller">
+                            The personal data provided above will be collected and processed for:
+                            issuing the tax invoice and warranty certificates, telephone information (and / or Email /
+                            SMS notifications regarding the order),
+                            delivery of the order and automatic registration of the customer's account.
+                        </p>
+
+                        <hr class="bg-gray-300">
+
+                        <div class="form-check mb-2">
+                            <!-- i do agree -->
+                            <input required class="form-check-input form-check-input-primary" type="checkbox"
+                                id="action" name="action" value=""><!-- value replaced by js: checkout:process -->
+                            <label class="form-check-label user-select-none" for="action">
+                                I agree Smarty <a class="text-decoration-none" href="shop-page-terms.html"
+                                    target="_blank" rel="noopener">terms & conditions</a>
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <!-- subscribe -->
+                            <input class="form-check-input form-check-input-primary" type="checkbox" value="1"
+                                id="accept_subscribe" name="user[accept_subscribe]">
+                            <label class="form-check-label user-select-none text-muted" for="accept_subscribe">
+                                Keep me informed with the latest gadgets
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 
+              
+              Submit
+              desktop only 
+
+            -->
+                <div class="d-none d-lg-block">
+                    <button type="submit" class="btn btn-lg btn-primary px-4 d-flex align-items-center">
+                        Place order
+                    </button>
+                </div>
+
+
+                <!-- 
+              
+              Submit
+              mobile only 
+
+            -->
+                <div
+                    class="d-flex d-lg-none align-items-center position-fixed w-100 bottom-0 start-0 end-0 z-index-2 bg-white border-top p-2">
+
+                    <div class="w-100 fw-medium lh-1">
+                        <span class="small d-block">Total <small class="fw-normal">(vat incl.)</small></span>
+                        <span class="h5 d-block">${{ total }}.00</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-sm btn-primary flex-none"
+                        data-form-submit='{"id":"action","value":"checkout:process","delay":800}'>
+                        Place order
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <!-- order summary -->
+        <div class="col-lg-5 mb-4">
+
+            <div class="sticky-kit z-index-0">
+
+                <!-- #cart-summary -->
+                <div class="card text-gray-800">
+                    <div class="card-header border-light fs-5 fw-bold mx-3 px-0 py-4">Order sumary</div>
+                    <div class="card-body p-md-4">
+
+                        <div id="cart-summary">
+                            <hr class="bg-gray-300">
+                            <div class="fw-medium lh-1 mt-4">
+                                <span class="fs-6 d-block">Total <small class="fw-normal">(vat incl.)</small>:</span>
+                                <span class="h3 d-block">$ {{ total }}.00</span>
+                            </div>
+
+                            <small class="d-block text-gray-600">
+                                <span>You Have to Pay <span class="text-primary"></span> </span>
+                            </small>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- /CHECKOUT -->
+
+{% endblock content %}

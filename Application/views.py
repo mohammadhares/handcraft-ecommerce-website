@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from requests.sessions import session
 from django.contrib import messages
 from django.http import JsonResponse
+from django.db import connection
+import json
 from .models import *
 
 
@@ -56,6 +58,7 @@ def loginCustomer(request):
             if user.password == password:
                 request.session['customer_id'] = user.id
                 request.session['customer_name'] = user.firstname
+                request.session['customer_photo'] = json.dumps(str(user.photo))
                 return redirect('root')
             else:
                 messages.error(request, "Incorrect Username or Password")
@@ -83,14 +86,15 @@ def addCart(request, id):
     product_id = id
     customer_id = request.session['customer_id']
     result = Order(
-        quantity= 1, 
-        price= 150,
+        quantity= request.POST['quantity'], 
+        price= request.POST['price'],
         customer_id=customer_id,
         product_id=product_id,
+        order_status=0,
     )
     result.save()
-    messages.success(request,"Successfully")
-    return redirect('root')
+    messages.success(request,"Successfully Added to cart")
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def shopList(request):
     return render(request, 'website/shop.html', {
@@ -502,15 +506,118 @@ def subscribe(request):
 
 @Customer_login_required
 def getCartPage(request):
-    return render(request, 'website/card.html')
+    cid = request.session.get('customer_id')
+    cart = Order.objects.raw("SELECT application_product.title,  application_product.description , application_product.photo , application_order.id , application_order.quantity , application_order.price , application_order.order_status , (application_order.quantity * application_order.price) as total_price , application_order.customer_id  FROM application_product INNER JOIN application_order ON application_product.id = application_order.product_id WHERE order_status = 0 AND application_order.customer_id ="+str(cid))
+    orders = Order.objects.raw("SELECT * , SUM(price * quantity) as total FROM application_order WHERE customer_id = 1 AND order_status = 0")
+    return render(request, 'website/card.html', {
+        'cart' : cart,
+        'orders' : orders,
+    })
+
+def checkout(request , total):
+    cid = request.session.get('customer_id')
+    shipping = Shipping.objects.all()
+    customer = Customer.objects.filter(id=cid).first()
+    return render(request, 'website/checkout.html', {
+        'total' : total,
+        'shipping' : shipping,
+        'customer' : customer
+    })
+
+def placeOrder(request):
+    cid = request.session.get('customer_id')
+    if request.method == "POST":
+        cursor = connection.cursor()
+        cursor.execute("UPDATE application_order SET order_status = 1, shipping_zone = '"+request.POST['shipping_zone']+"' , shipping_address='"+request.POST['ship_address']+"'  WHERE order_status = 0 AND customer_id = "+str(cid))
+        cust = Customer.objects.get(id=cid)
+        cust.firstname = request.POST['firstname']
+        cust.lastname = request.POST['lastname']
+        cust.phone = request.POST['phone']
+        cust.save()
+
+        if request.POST['card_no'] != "":
+            PaymentCard(
+                customer_id = cid ,
+                card_no= request.POST['card_no'],
+                card_cvc= request.POST['cvc'],
+                card_exp= request.POST['expire_date']
+            ).save()
+
+        messages.success(request,"Your Order Submited Successfully")
+        return redirect('root')
 
 @Customer_login_required
 def myAccount(request):
-    return render(request, 'website/myaccount.html')
+    cid = request.session.get('customer_id')
+    return render(request, 'website/myaccount.html', {
+        'account': Customer.objects.filter(id=cid).first()
+    })
+
+def UpdateAccount(request, id):
+    cust = Customer.objects.get(id=id)
+    if request.method == "POST":
+        if len(request.FILES) != 0:
+            cust.photo = request.FILES['photo']
+        if request.POST['password'] == "":
+            cust.password = request.POST['password']
+
+        cust.firstname = request.POST['firstname']
+        cust.lastname = request.POST['lastname']
+        cust.phone = request.POST['phone']
+        cust.email = request.POST['email']
+        cust.save()
+        messages.success(request,"Your Account Update Successfully")
+        return redirect(request.META.get('HTTP_REFERER'))
+
 
 @Customer_login_required
 def myWishlist(request):
-    return render(request, 'website/wishlist.html')
+    cid = request.session.get('customer_id')
+    return render(request, 'website/wishlist.html', {
+        'wishlist' : Product.objects.raw("SELECT * ,application_wishlist.id as wid  FROM application_product INNER JOIN application_wishlist ON application_product.id=application_wishlist.product_id WHERE customer_id="+str(cid))
+    })
+
+def removeWishlist(request , id):
+    WishList.objects.filter(id=id).delete()
+    messages.success(request,"Product Removed From Wishlist Successfully")
+    return redirect(request.META.get('HTTP_REFERER'))
+
+@Customer_login_required
+def myOrders(request):
+    cid = request.session.get('customer_id')
+    cart = Order.objects.raw("SELECT application_product.title,  application_product.description , application_product.photo , application_order.id , application_order.quantity , application_order.price , application_order.order_status , (application_order.quantity * application_order.price) as total_price , application_order.customer_id  FROM application_product INNER JOIN application_order ON application_product.id = application_order.product_id WHERE order_status = 1 AND application_order.customer_id ="+str(cid))
+    return render(request, 'website/myorders.html', {
+        'cart' : cart
+    })
+
+def trackMyOrder(request, id):
+    tracks = TrackOrder.objects.filter(order_id=id)
+    return  render(request, 'website/trackorder.html', {
+        'tracks' : tracks,
+        'order_id' : id,
+    })    
+
+def refundOrder(request , id):
+    refund = Refund.objects.filter(order_id=id)
+    return  render(request, 'website/refund.html', {
+        'refund' : refund,
+        'order_id' : id,
+    })    
+
+def sendRefundOrder(request , id):
+    if request.method == "POST":
+        Refund(
+            refund_status= 1, 
+            refund_message= request.POST['message'],
+            order_id = id
+        ).save()
+        messages.success(request,"Refund Request Send Successfully")
+        return redirect(request.META.get('HTTP_REFERER'))
+
+
+@Customer_login_required
+def accountSetting(request):
+    return render(request, 'website/account_setting.html')
 
 
 def searchData(request):
@@ -565,11 +672,11 @@ def getInfo(request):
         })
     else:
         cid = request.session.get('customer_id')
-        basketCount = Order.objects.filter(customer_id=cid).count()
+        basketCount = Order.objects.raw("SELECT * , COUNT(id) as bsk FROM application_order WHERE order_status = 0 AND customer_id = "+str(cid))
         wishlist = WishList.objects.filter(customer_id=cid).count()
         customer = Customer.objects.filter(id=cid).first()
         return JsonResponse({
-            'basketCount': basketCount,
+            'basketCount': basketCount[0].bsk,
             'wishlist' : wishlist,
             'customer' : customer.firstname+" "+customer.lastname,
             'title' : title , 

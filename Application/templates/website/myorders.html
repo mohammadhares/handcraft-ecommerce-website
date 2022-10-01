@@ -17,8 +17,8 @@
         <!-- content -->
         <div class="col-12 col-lg-9">
             <!-- item -->
-            {% for data in wishlist %}
             <div class="card p-3 shadow-xs shadow-md-hover mb-3 rounded bg-white">
+                {% for data in cart %}
                 <div class="row col-border">
 
                     <!-- image -->
@@ -33,18 +33,19 @@
                     <!-- detail -->
                     <div class="col-7 col-sm-5 col-md-4 col-lg-6 bordered-start">
 
-                        <a class="link-normal fw-medium" href="/product-detail/{{ data.product_id }}">
+                        <a class="link-normal fw-medium" href="">
                             {{ data.title }}
                         </a>
 
                         <div class="mb-3 clearfix">
-                            <span class="text-muted small">
-                                {{ data.description }}
-                            </span>
+                            <p>{{ data.description }}</p>
                         </div>
 
                         <p class="fw-medium mb-0">
-                            Price :  $ {{ data.price }}
+                            <del class="text-muted"></del> Price: $ {{ data.price }}
+                        </p>
+                        <p class="fw-medium mb-0">
+                            <del class="text-muted"></del> Quantity : {{ data.quantity }}
                         </p>
 
                     </div>
@@ -55,13 +56,26 @@
 
                     <!-- buttons -->
                     <div class="col-12 col-sm-4 col-md-4 col-lg-4 text-align-end text-align-center-xs border-0">
-                        <a href="/remove-wishlist/{{ data.wid }}" class="btn btn-sm btn-danger fs-6 w-100-xs d-block-xs">
-                            Remove
-                        </a>
+
+                        <div class="clearfix mt-2">
+                            <a href="/track-myorder/{{ data.id }}" style="width: 150px;" 
+                            class=" btn btn-sm btn-primary d-block-xs fw-normal fs-6 w-100-xs d-block-xs">
+                                Tracks {{ data.id }}
+                            </a>
+                        </div>
+
+                        <div class="clearfix mt-2">
+                            <a href="/refund/{{ data.id }}"  style="width: 150px;" class="btn btn-sm btn-danger d-block-xs fw-normal fs-6 w-100-xs d-block-xs">
+                                Refund 
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <br>
+                <hr>
+                <br>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </div>
 </div>

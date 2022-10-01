@@ -1,0 +1,64 @@
+{% extends 'app/website.html' %}
+{% load static %}
+{% block content %}
+
+<!-- PAGE TITLE -->
+<div class="container py-5">
+    <h1 class="h2 fw-bold">My Account</h1>
+</div>
+
+<!-- -->
+<div class="container pb-6">
+    <div class="row g-4">
+        <!-- sidebar -->
+        <div class="col-12 col-lg-3">
+            {% include 'app/myaccount.html' %}
+        </div>
+        <!-- content -->
+        <div class="col-12 col-lg-9">
+            <!-- item -->
+            <h4>Track Order : #{{ order_id }}</h4>
+            <hr>
+            {% for data in tracks %}
+            <div class="card p-3 shadow-xs shadow-md-hover mb-3 rounded bg-white">
+                <div class="row col-border">
+
+                    <!-- detail -->
+                    <div class="col-7 col-sm-5 col-md-4 col-lg-6 bordered-start">
+                        <h5>#{{ data.id }}</h5>
+                        <a class="link-normal fw-medium" href="shop-page-product-2.html">
+                            {{ data.track_message }}
+                        </a>
+                        <small style="color: green; margin-left: 10px;"><i>{{ data.created }}</i></small>
+                    </div>
+
+                    <div class="col-12 d-block d-sm-none mt-3">
+                        <!-- mobile spacer -->
+                        
+                    </div>
+
+                    <!-- buttons -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4 text-align-end text-align-center-xs border-0">
+                        <div class="" style="margin-right: -120px;">
+                            {% if data.track_status == 1 %}
+                                <span class="badge bg-warning-soft">Packaging</span>
+                                {% elif data.track_status == 2 %}
+                                <span class="badge bg-primary-soft">Dispatch</span>
+                                {% elif data.track_status == 3 %}
+                                <span class="badge bg-primary-soft">Transit</span>
+                                {% elif data.track_status == 4 %}
+                                <span class="badge bg-primary-soft">Source</span>
+                                {% else %}
+                                <span class="badge bg-success-soft">Arrived</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- / -->
+
+{% endblock content %}

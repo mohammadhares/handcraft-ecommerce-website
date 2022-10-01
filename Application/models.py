@@ -58,6 +58,7 @@ class meta:
 
 class PaymentCard(models.Model):
     id=models.AutoField(primary_key=True)
+    customer=models.ForeignKey('Customer', on_delete=models.CASCADE)
     card_no=models.CharField(max_length=300)
     card_cvc=models.IntegerField()
     card_exp=models.CharField(max_length=300)

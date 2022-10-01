@@ -1,0 +1,89 @@
+{% extends 'app/website.html' %}
+{% load static %}
+{% block content %}
+
+<!-- PAGE TITLE -->
+<div class="container py-5">
+    <h1 class="h2 fw-bold">My Account</h1>
+</div>
+
+<!-- -->
+<div class="container pb-6">
+    <div class="row g-4">
+        <!-- sidebar -->
+        <div class="col-12 col-lg-3">
+            {% include 'app/myaccount.html' %}
+        </div>
+        <!-- content -->
+        <div class="col-12 col-lg-9">
+        <h4>Order : #{{ order_id }}</h4>
+
+            <!-- item -->
+            <div class="card p-3 shadow-xs shadow-md-hover mb-3 rounded bg-white">
+                <div class="card-body p-4">
+                    {% if refund.count > 0 %}
+                    {% for data in refund %}
+                        <div class="row col-border">
+        
+                            <!-- detail -->
+                            <div class="col-7 col-sm-5 col-md-4 col-lg-6 bordered-start">
+                                <h5>#{{ data.id }}</h5>
+                                <a class="link-normal fw-medium" href="">
+                                    {{ data.refund_message }}
+                                </a>
+                            </div>
+        
+                            <div class="col-12 d-block d-sm-none mt-3">
+                                <!-- mobile spacer -->
+                            </div>
+        
+                            <!-- buttons -->
+                            <div class="col-12 col-sm-4 col-md-4 col-lg-4 text-align-end text-align-center-xs border-0">
+                                <div class="" style="margin-right: -100px;">
+                                    {% if data.refund_status == 1 %}
+                                        <span class="badge bg-success-soft">Request Send</span>
+                                        {% elif data.refund_status == 2 %}
+                                        <span class="badge bg-warning-soft">Proccesing </span>
+                                        {% elif data.refund_status == 3 %}
+                                        <span class="badge bg-success-soft">Accespted</span>
+                                        {% elif data.refund_status == 4 %}
+                                        <span class="badge bg-danger-soft"> Rejected</span>
+                                    {% endif %}
+                                    <br>
+                                    <div>
+                                        <small style="color: green; margin-left: 10px;"><i>{{ data.updated }}</i></small>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% else %}
+                    <form method="POST" action="/send-refund/{{ order_id }}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <h2 class="h4 mb-4">
+                        Refund  <strong class="text-primary"></strong>
+                      </h2>
+
+                      <div class="form-floating mb-3">
+                        <textarea name="message" id="message" class="form-control" cols="30" rows="5"></textarea>
+                        <label for="account_email">Please Type Your Reason Carefully!</label>
+                      </div>
+
+
+                      <button type="submit" class="btn btn-sm btn-primary d-flex align-items-center">
+                        <span>Send  </span>
+                      </button>
+  
+                    </form>
+                    {% endif %}
+  
+                  </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / -->
+
+{% endblock content %}
