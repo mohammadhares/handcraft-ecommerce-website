@@ -21,6 +21,7 @@ class Category(models.Model):
     photo = models.ImageField(upload_to="uploads/category/")
     created=models.DateField(auto_now_add=True)
     updated=models.DateField(auto_now_add=True)
+    seller_id = models.CharField(max_length=200, default=0)
 
 class meta:
     db_table = 'categories'
@@ -36,6 +37,7 @@ class Product(models.Model):
     photo=models.ImageField(upload_to="uploads/products/")
     created=models.DateField(auto_now_add=True)
     updated=models.DateField(auto_now_add=True)
+    seller_id = models.CharField(max_length=200, default=0)
 
 class meta:
     db_table = 'products'
@@ -189,6 +191,18 @@ class Shipping(models.Model):
 
 class meta:
     db_table = 'shipping'
+
+class Seller(models.Model):
+    id = models.AutoField(primary_key=True)
+    firstname = models.CharField(max_length=200)
+    lastname = models.CharField(max_length=200)
+    email = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+class Meta:
+    db_table = 'Seller'
 
 
 

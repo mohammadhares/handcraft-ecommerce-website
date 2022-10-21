@@ -107,8 +107,24 @@ urlpatterns = [
     path('send-refund/<str:id>', views.sendRefundOrder , name="send.refund.myorder"),
     path('account-setting', views.accountSetting , name="account.setting"),
     path('update-card/<str:id>', views.updateCard , name="update.card"),
-
     path('search', views.searchData , name="search.data"),
-
     path('info', views.getInfo, name="get.info"),
+
+    path('seller-login', views.getSellerLogin, name="seller.login"),
+    path('seller-singup', views.getSellerSignup, name="seller.signup"),
+    path('register-seller', views.registerSeller, name="seller.register"),
+    path('login-seller', views.loginSeller, name="sellers.login"),
+    path('seller-home', views.sellerHome, name="seller.home"),
+
+    path('seller-category', views.sellerCategory, name="seller.category"),
+    path('seller-product', views.sellerProduct, name="seller.product"),
+
+    path('profile', views.profile , name="seller.profile"),
+    path('update-profile/<str:id>', views.updateProfile , name="update.profile"),
+
+    path('seller-orders', views.sellerOrders , name="seller.orders"),
+    path('track-order/<str:id>', views.trackOrders, name="seller.tracks"),
+
+    path('seller-logout', views.sellerLogout, name="seller.logout"),
+    
 ]

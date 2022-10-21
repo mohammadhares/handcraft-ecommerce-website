@@ -1,0 +1,59 @@
+{% extends 'app/seller_layout.html' %}
+{% load static %}
+{% block content %}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+    </ol>
+</nav>
+<main id="middle" class="flex-fill mx-auto">
+    <div class="section p-0">
+        <div class="card-header p-4">
+            <div class="row g-3">
+                <div class="row p-5">
+                    <div class="col-md-6" style="margin: auto;">
+                        <form action="/update-profile/{{ profile.id }}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="email">Firstname:</label>
+                                <input type="text" value="{{ profile.firstname }}" class="form-control" name="firstname"
+                                    placeholder="Please Type the firstname">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="pwd">Lastname:</label>
+                                <input type="text" value="{{ profile.lastname }}" class="form-control" name="lastname"
+                                    placeholder="Please Type the Lastname">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="pwd">Email:</label>
+                                <input type="email" value="{{ profile.email }}" class="form-control" name="email"
+                                    placeholder="Please Type the Email">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label>
+                                <input type="password" value="" class="form-control" name="password"
+                                    placeholder="Please Type the Password">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="pwd">Confirm Password:</label>
+                                <input type="password" value="" class="form-control"
+                                    placeholder="Please Type the Confirm Password">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary btn-sm" value="Save Changes">
+                            </div>
+                            <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

@@ -1,0 +1,98 @@
+{% load static %}
+<!doctype html>
+<html lang="en">  
+<head>
+    <meta charset="UTF-8">
+    <title>Seller - Login </title>
+    <meta name="description" content="...">
+    <meta name="viewport" content="width=device-width, maximum-scale=5, initial-scale=1">
+    <!-- up to 10% speed up for external res -->
+    <link rel="preload" href="assets/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{% static '/assets/css/core.min.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/css/vendor_bundle.min.css' %}">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <div class="row g-0 bg-white min-vh-100 align-items-center">
+      <div class="col-lg-6 text-center text-lg-start overflow-hidden z-index-2">
+        <div class="px-3 py-6">
+          <div class="row">
+            <div class="col-sm-8 col-md-6 col-lg-9 col-xl-12 mx-auto max-w-450">
+
+              <h1 class="fw-bold">Sign in</h1>
+              <h3 class="fw-bold">Welcome to Seller Account</h3>
+              <hr>
+              <br>
+
+              <form novalidate class="bs-validate" method="POST" action="/login-seller" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- email address -->
+                <div class="form-floating mb-3">
+                  <input required type="email" name="email" class="form-control" id="account_email" placeholder="Email address">
+                  <label for="account_email">Email address</label>
+                </div>
+
+                <!-- password -->
+                <div class="form-floating mb-3">
+                  <input required type="password" name="password" class="form-control" id="account_passwd"
+                   placeholder="Password" autocomplete="new-password">
+                  <label for="account_passwd">Password</label>
+
+                  <!-- forgot -->
+                  <a href="/" class="btn bg-transparent shadow-none link-muted position-absolute top-0 end-0 m-1">
+                    Forgot
+                  </a>
+                </div>
+
+                <!-- submot button -->
+                <div class="d-grid mb-3">
+                  <button type="submit" class="btn btn-primary">
+                    <span>Sign in</span>
+                    <svg class="rtl-flip" width="18px" height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                      <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                    </svg>
+                  </button>
+                </div>
+
+              </form>
+
+              <!-- create account -->
+              <div class="text-center mt-4">
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row mt-7">
+            <div class="col-sm-8 col-md-6 col-lg-9 col-xl-5 mx-auto">
+
+              <div class="d-flex align-items-center justify-content-between w-100 max-w-250 mx-auto mb-3 small text-muted">
+                <hr class="w-100">
+                <span class="flex-none px-4">OR</span>
+                <hr class="w-100">
+              </div> 
+
+              <div class="w-100 d-inline-grid gap-auto-3">
+                <a href="/seller-singup" class="btn border w-100 mx-0 text-gray-700">
+                  Create Your Seller Account?
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="d-none d-lg-block min-vh-100 col-lg-6 bg-cover py-8 overlay-dark overlay-opacity-25" style="background-image:url('../../../static/assets/images/team/product-school-XZkk5xT8Xrk-unsplash.jpg')">
+        <svg class="d-none d-lg-block position-absolute h-100 top-0 text-white ms-n5" style="width:6rem" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <polygon points="50,0 100,0 50,100 0,100"></polygon>
+        </svg>
+      </div>
+    </div>
+    <!-- Core javascripts -->
+    <script src="{% static '/assets/js/core.min.js' %}"></script>
+    <script src="{% static '/assets/js/vendor_bundle.min.js' %}"></script>
+    <!-- Your custom javascripts -->
+  </body>
+</html>

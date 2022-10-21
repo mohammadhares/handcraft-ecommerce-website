@@ -1,0 +1,213 @@
+{% extends 'app/seller_layout.html' %}
+{% load static %}
+{% block content %}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Order Management</li>
+    </ol>
+</nav>
+<main id="middle" class="flex-fill mx-auto">
+    <div class="section p-0">
+        <div class="card-header p-4">
+            <div class="row g-3">
+                <!-- product filter -->
+                <div class="order-2 order-md-1 col">
+                    <form method="get" class="position-relative d-flex align-items-center">
+                        <!-- search icon -->
+                        <svg class="z-index-1 position-absolute start-0 ms-3 text-primary" width="18px" height="18px"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <div class="dropdown w-100">
+                            <input type="text"
+                                class="dropdown-toggle form-control form-control-sm border-0 shadow-none ps-5 bg-gray-100"
+                                 placeholder="Order ID , Product Title" id="order_search" onkeyup="search('order_search', 'order_table')">
+                        </div>
+                    </form>
+                </div>
+                <!-- options -->
+            </div>
+        </div>
+
+        <div class="card-body pt-1">
+            <!-- item list -->
+            <div class="table-responsive-md">
+                <table class="table table-align-middle" role="grid" aria-describedby="mobile-page-info" id="order_table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="small text-muted">ID</th>
+                            <th scope="col" class="small text-muted">Image</th>
+                            <th scope="col" class="small text-muted">Title</th>
+                            <th scope="col" class="small text-muted">Customer</th>
+                            <th scope="col" class="small text-muted">Quantity</th>
+                            <th scope="col" class="small text-muted">Price</th>
+                            <th scope="col" class="small text-muted">Shipping Price</th>
+                            <th scope="col" class="small text-muted">Shipping Address</th>
+                            <th scope="col" class="small text-muted">Payment</th>
+                            <th scope="col" class="small text-muted">Created Date</th>
+                            <th scope="col" class="small text-muted">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="checkall-list">
+                        <!-- item -->
+                        {% for data in orders %}
+                        <tr>
+                            <td class="position-relative">#{{ data.order_id }}</td>
+                            <td>
+                                <img class="border border-light p-1 circle" width="50" src="../../../static/{{ data.photo }}"
+                                    alt="...">
+                            </td>
+                            <td class="position-relative">{{ data.title }} </td>
+                            <td class="position-relative">{{ data.firstname }} {{ data.lastname }} </td>
+                            <td class="position-relative">{{ data.quantity }} </td>
+                            <td class="position-relative">$ {{ data.price }} </td>
+                            <td class="position-relative">$ {{ data.shipping_price }} </td>
+                            <td class="position-relative">{{ data.shipping_address }} </td>
+                            <td class="position-relative">
+                                {% if data.payment_type == 1 %}
+                                    Card 
+                                {% elif data.payment_type == 2 %}
+                                    Phone Credit
+                                {% else  %}
+                                    Cash & Delivery
+                                {% endif %}
+                            </td>
+                            <td class="position-relative">{{ data.created }}</td>
+                            <td class="dropstart">
+                                <!-- options -->
+                                <a class="btn btn-sm btn-light btn-icon btn-ghost text-muted rounded-circle dropdown-toggle"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                    data-bs-offset="0,0">
+                                    <span class="group-icon">
+                                        <svg height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-clean">
+                                    <li>
+                                        <a class="dropdown-item" href="" data-bs-toggle="modal"
+                                        data-bs-target="#preview{{data.id}}">
+                                            <svg class="text-muted" width="18px" height="18px"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                            <span>Preview</span>
+                                        </a>
+                                    </li>
+                                    <!-- <li>
+                                        <a class="dropdown-item" href="" data-bs-toggle="modal"
+                                            data-bs-target="#modalCentered{{data.id}}">
+                                            <svg class="text-muted" width="18px" height="18px"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M12 20h9"></path>
+                                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z">
+                                                </path>
+                                            </svg>
+                                            <span>Order Info </span>
+                                        </a>
+                                    </li> -->
+                                    <li>
+                                        <a class="dropdown-item" href="/track-order/{{ data.order_id }}">
+                                            <svg class="text-muted" width="18px" height="18px"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M12 20h9"></path>
+                                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z">
+                                                </path>
+                                            </svg>
+                                            <span>Track Order </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="doDelete('Are You Sure to Delete Category?');" class="dropdown-item" href="/category/destroy/{{ data.id }}">
+                                            <svg class="text-danger" width="18px" height="18px"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path
+                                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                </path>
+                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                            </svg>
+                                            <span class="w-100">Delete</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- Edit Modal  -->
+                                <div class="modal fade" id="modalCentered{{data.id}}" data-bs-keyboard="false"
+                                    tabindex="-1" aria-labelledby="modalCenteredLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalCenteredLabel">Edit Category</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>1</th>
+                                                        <td>alsdj</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="preview{{data.id}}" data-bs-keyboard="false"
+                                    tabindex="-1" aria-labelledby="modalCenteredLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div>
+                                                    <img style="width: 100%;" src="../../../static/{{ data.photo }}" class="img img-responsive" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <!-- end item -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- pagination, selected items -->
+            <div class="row">
+                <div class="col py-3 text-center text-md-start">
+                    <!-- selected items -->
+                    <div class="d-grid d-md-inline-block dropup">
+                        <!-- <a class="btn btn-sm btn-primary btn-sm" href="#" >
+                <span>Print All</span>
+              </a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}
