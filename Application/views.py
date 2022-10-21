@@ -108,7 +108,7 @@ def home(request):
 # Show Category
 @Admin_login_required
 def showCategories(request):
-    category = Category.objects.all().order_by('-id')
+    category = Category.objects.filter(seller_id=0).order_by('-id')
     return render(request, 'dashboard/category/category.html', {'category': category})
 
 # Add New Category
@@ -153,8 +153,8 @@ def changeCategoryStatus(request , id , status):
 @Admin_login_required
 def showProducts(request):
     return render(request, 'dashboard/product/product.html', {
-        'products' : Product.objects.raw("SELECT * FROM application_product INNER JOIN 	application_category ON application_product.category_id = application_category.id"),
-        'categories' : Category.objects.all().order_by('-id')
+        'products' : Product.objects.raw("SELECT * FROM application_product INNER JOIN 	application_category ON application_product.category_id = application_category.id WHERE application_product.seller_id = 0"),
+        'categories' : Category.objects.filter(seller_id=0).order_by('-id')
     })
 
 # Store Product
@@ -221,7 +221,7 @@ def customerDestroy(request , id):
 @Admin_login_required
 def showOrders(request):
     return render(request, 'dashboard/order/order.html', {
-        'orders' : Order.objects.raw("SELECT * FROM application_customer INNER JOIN application_order on application_customer.id = application_order.customer_id INNER JOIN application_product ON application_product.id = application_order.product_id;")
+        'orders' : Order.objects.raw("SELECT *, application_order.id as order_id  FROM application_customer INNER JOIN application_order on application_customer.id = application_order.customer_id INNER JOIN application_product ON application_product.id = application_order.product_id WHERE application_product.seller_id = 0")
     })
 
 # Show Order Tracking
